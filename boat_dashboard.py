@@ -71,6 +71,12 @@ Builder.load_string(kv)
 
 degree_sign = u'\N{DEGREE SIGN}'
 
+
+import ctypes
+user32 = ctypes.windll.user32
+screenwidth = user32.GetSystemMetrics(0)
+screenheight = user32.GetSystemMetrics(1)
+
 from kivy.config import Config
 from kivy.core.window import Window
 
