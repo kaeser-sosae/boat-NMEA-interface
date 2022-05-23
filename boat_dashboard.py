@@ -112,7 +112,7 @@ class WebSocketTest(App):
 
     def build(self):
         Window.borderless = True
-        Window.size = 400, 9200
+        Window.size = 400, 920
         Window.top = 0
         Window.left = 800
         self.layout = WS()
