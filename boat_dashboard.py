@@ -53,15 +53,15 @@ kv = '''
     land_speed: land_speed
 
     Label:
-        font_size: 100
+        font_size: 75
         id: water_temp
         text: "0"
     Label:
-        font_size: 100
+        font_size: 75
         id: water_speed
         text: "0 kt"
     Label:
-        font_size: 100
+        font_size: 75
         id: land_speed
         text: "0 kt"
 
