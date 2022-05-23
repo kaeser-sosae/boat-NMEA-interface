@@ -1,6 +1,6 @@
 from kivy.app import App
 from kivy.lang import Builder
-from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.gridlayout import GridLayout 
 from kivy.properties import StringProperty, ObjectProperty
 from kivy.clock import Clock
 from kivy.logger import Logger
@@ -13,72 +13,130 @@ import time
 
 import json
 
+from kivy.config import Config
+from kivy.core.window import Window
+
+import os
+import ctypes
+
+
+
 kv = '''
 <WS>:
+    cols: 1
 
-    canvas:
-        Rectangle:
-            id: first_line
-            pos: (0,self.height/3*3)
-            size: (self.width,10)
-        Rectangle:
-            id: first_line
-            pos: (0,self.height/3*2)
-            size: (self.width,10)
-        Rectangle:
-            id: first_line
-            pos: (0,self.height/3)
-            size: (self.width,10)
-        Rectangle:
-            id: first_line
-            pos: (0,0)
-            size: (10,self.height)  
-        Rectangle:
-            id: first_line
-            pos: (self.width-10,0)
-            size: (10,self.height)  
-        Rectangle:
-            id: first_line
-            pos: (0,self.height-10)
-            size: (self.width,10) 
-        Rectangle:
-            id: first_line
-            pos: (0,0)
-            size: (self.width,10)                  
+    # canvas:
+    #     Rectangle:
+    #         pos: (0,self.height/3*3)
+    #         size: (self.width,10)
+    #     Rectangle:
+    #         pos: (0,self.height/3*2)
+    #         size: (self.width,10)
+    #     Rectangle:
+    #         pos: (0,self.height/3)
+    #         size: (self.width,10)
+    #     Rectangle:
+    #         pos: (0,0)
+    #         size: (10,self.height)
+    #     Rectangle:
+    #         pos: (self.width-10,0)
+    #         size: (10,self.height)  
+    #     Rectangle:
+    #         pos: (0,self.height-10)
+    #         size: (self.width,10) 
+    #     Rectangle:
+    #         pos: (0,0)
+    #         size: (self.width,10) 
 
-    orientation: 'vertical'
-    
+    canvas.before:
+        Color:
+            rgba: 0, 0, 0, 1.0
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
     water_temp: water_temp
     water_speed: water_speed
     land_speed: land_speed
 
-    Label:
-        font_size: 75
-        id: water_temp
-        text: "0"
-    Label:
-        font_size: 75
-        id: water_speed
-        text: "0 kt"
-    Label:
-        font_size: 75
-        id: land_speed
-        text: "0 kt"
+    GridLayout:
+        cols: 1
+        canvas.before:
+            Color:
+                rgba: 255,255,255,1
+            Rectangle:
+                size: self.size
+                pos: self.pos
+        canvas:
+            Color:
+                rgba: 0,0,0,1
+            Rectangle:
+                size: self.width-20, self.height-15
+                pos: (10,root.height-self.height+5)
+        Label:
+            font_size: 30
+            id: water_temp_label
+            text: "Water Temperature"
+            size_hint_y: 0.2
+        Label:
+            font_size: 150
+            id: water_temp
+            text: "0"
+    BoxLayout:
+        canvas.before:
+            Color:
+                rgba: 255,255,255,1
+            Rectangle:
+                size: self.size
+                pos: self.pos
+        canvas:
+            Color:
+                rgba: 0,0,0,1
+            Rectangle:
+                size: self.width-20, self.height-10
+                pos: (10,root.height-(self.height*2)+5) 
+        Label:
+            font_size: 75
+            id: water_speed
+            text: "0 kt"
+
+    BoxLayout:
+        canvas.before:
+            Color:
+                rgba: 255,255,255,1
+            Rectangle:
+                size: self.size
+                pos: self.pos
+        canvas:
+            Color:
+                rgba: 0,0,0,1
+            Rectangle:
+                size: self.width-20, self.height-15
+                pos: (10,root.height-(self.height*3)+10)     
+        Label:
+            font_size: 75
+            id: land_speed
+            text: "0 kt"
 
 
 '''
+
 Builder.load_string(kv)
 
 degree_sign = u'\N{DEGREE SIGN}'
 
+screenwidth = 0
+screenheight = 0
 
-import ctypes
-user32 = ctypes.windll.user32
-screenwidth = user32.GetSystemMetrics(0)
-screenheight = user32.GetSystemMetrics(1)
+if os.name == 'nt':
+    user32 = ctypes.windll.user32
+    screenwidth = user32.GetSystemMetrics(0)
+    screenheight = user32.GetSystemMetrics(1)
+else:
+    screenheight=1080
+    screenwidth=1000
 
-from kivy.config import Config
-from kivy.core.window import Window
+Config.set('graphics', 'resizable', True)
 
 class KivyWebSocket(websocket.WebSocketApp):
 
@@ -87,7 +145,7 @@ class KivyWebSocket(websocket.WebSocketApp):
         self.logger = Logger
         self.logger.info('WebSocket: logger initialized')
 
-class WS(BoxLayout):
+class WS(GridLayout):
     water_temp = ObjectProperty()
     water_speed = ObjectProperty()
     land_speed = ObjectProperty()
@@ -117,7 +175,7 @@ class WebSocketTest(App):
         Clock.schedule_once(app.ws_connection)
 
     def build(self):
-        Window.borderless = True
+        Window.borderless = False
         Window.size = 400, screenheight-45
         Window.top = 0
         Window.left = screenwidth - 400
