@@ -114,7 +114,7 @@ class WebSocketTest(App):
         Window.borderless = True
         Window.size = 400, 932
         Window.top = 0
-        Window.left = 1262
+        Window.left = 1263
         self.layout = WS()
         return self.layout
 
