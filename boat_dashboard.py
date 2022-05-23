@@ -74,7 +74,7 @@ degree_sign = u'\N{DEGREE SIGN}'
 from kivy.config import Config
 from kivy.core.window import Window
 
-class KivyWebSocket(websocket.WebSocketApp):
+class KivyWebSocket(websocket.WebSocket):
 
     def __init__(self, *args, **kwargs):
         super(KivyWebSocket, self).__init__(*args, **kwargs)
