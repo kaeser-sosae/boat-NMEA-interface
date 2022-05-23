@@ -79,7 +79,7 @@ kv = '''
             text: "Water Temperature"
             size_hint_y: 0.2
         Label:
-            font_size: 150
+            font_size: 75
             id: water_temp
             text: "0"
     BoxLayout:
