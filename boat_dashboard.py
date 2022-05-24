@@ -135,7 +135,7 @@ kv = '''
         RelativeLayout:
             Image:
                 source: 'wind_background.png'
-                size: 400,400
+                #size: 400,400
             Label:
                 bold: True
                 font_size: 20
@@ -157,7 +157,6 @@ kv = '''
                 id: wind_needle
                 source: 'wind_needle.png'
                 pos: 0,-6
-                size: self.size, self.size-20
  
 
 
