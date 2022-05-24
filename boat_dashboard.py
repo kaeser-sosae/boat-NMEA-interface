@@ -157,6 +157,7 @@ kv = '''
                 id: wind_needle
                 source: 'wind_needle.png'
                 pos: 0,-6
+                size: self.size, self.size-20
  
 
 
