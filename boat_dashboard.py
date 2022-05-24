@@ -33,6 +33,17 @@ kv = '''
     canvas.after:
         PopMatrix
 
+<DirNeedle@Image>:
+    angle: 0
+    canvas.before:
+        PushMatrix
+        Rotate:
+            angle: root.angle
+            axis: 0,0,1
+            origin: root.center
+    canvas.after:
+        PopMatrix        
+
 <WS>:
     cols: 1
 
@@ -45,10 +56,45 @@ kv = '''
 
     water_temp: water_temp
     water_speed: water_speed
-    land_speed: land_speed
+    #land_speed: land_speed
     wind_speed: wind_speed
     wind_direction: wind_direction
     wind_needle: wind_needle
+    #dir_needle: dir_needle
+
+    RelativeLayout:
+        cols: 1
+        canvas.before:
+            Color:
+                rgba: 0,0,0,1
+            Rectangle:
+                size: self.size
+                pos: 0,0
+        RelativeLayout:
+            Image:
+                source: 'speed_background.png'
+                #size: 400,400
+            # Label:
+            #     bold: True
+            #     font_size: 20
+            #     color: 0,0,0,1
+            #     id: wind_speed
+            #     text: "0 kt"
+            #     size_hint_y: 0.2
+            #     pos: 0,25 
+            # Label:
+            #     bold: True
+            #     font_size: 20
+            #     color: 0,0,0,1
+            #     id: wind_direction
+            #     text: "000 S"
+            #     size_hint_y: 0.2
+            #     pos: 0,50                               
+        # RelativeLayout:        
+        #     DirNeedle:
+        #         id: dir_needle
+        #         source: ''
+        #         pos: 0,-6
 
     RelativeLayout:
         cols: 1
@@ -100,30 +146,6 @@ kv = '''
             id: water_speed
             text: "0"
 
-    RelativeLayout:
-        cols: 1
-        canvas.before:
-            Color:
-                rgba: 255,255,255,1
-            Rectangle:
-                size: self.size
-                pos: 0,0
-        canvas:
-            Color:
-                rgba: 0,0,0,1
-            Rectangle:
-                size: self.width-20,self.height-10
-                pos: 10,10
-        Label:
-            font_size: 30
-            id: land_speed_label
-            text: "Land Speed"
-            size_hint_y: 0.2
-            pos: 0,500
-        Label:
-            font_size: 75
-            id: land_speed
-            text: "0 kt"
     RelativeLayout:
         cols: 1
         canvas.before:
@@ -189,7 +211,7 @@ class KivyWebSocket(websocket.WebSocketApp):
 class WS(GridLayout):
     water_temp = ObjectProperty()
     water_speed = ObjectProperty()
-    land_speed = ObjectProperty()
+    #land_speed = ObjectProperty()
     wind_speed = ObjectProperty()
     wind_direction = ObjectProperty()
 
