@@ -151,7 +151,7 @@ kv = '''
                 id: wind_direction
                 text: "000 S"
                 size_hint_y: 0.2
-                pos: 0,50                               
+                pos: 0,60                               
         RelativeLayout:        
             WindDirNeedle:
                 id: wind_needle
