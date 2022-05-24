@@ -143,7 +143,7 @@ kv = '''
                 id: wind_speed
                 text: "0 kt"
                 size_hint_y: 0.2
-                pos: 0,15 
+                pos: 0,25 
             Label:
                 bold: True
                 font_size: 20
