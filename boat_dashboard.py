@@ -77,8 +77,9 @@ kv = '''
             font_size: 30
             id: water_temp_label
             text: "Water Temperature"
-            size_hint_y: 0.2
-            pos: 0,500
+            #size_hint_y: 0.1
+            size: self.width, 100
+            pos: 0,250
         Label:
             font_size: 75
             id: water_temp
