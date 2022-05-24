@@ -35,6 +35,8 @@ kv = '''
     water_temp: water_temp
     water_speed: water_speed
     land_speed: land_speed
+    wind_speed: wind_speed
+    wind_direction: wind_direction
 
     RelativeLayout:
         cols: 1
@@ -114,7 +116,7 @@ kv = '''
         cols: 1
         canvas.before:
             Color:
-                rgba: 255,255,255,1
+                rgba: 0,0,0,1
             Rectangle:
                 size: self.size
                 pos: 0,0
@@ -122,6 +124,22 @@ kv = '''
             Image:
                 source: 'wind_background.png'
                 size: 400,400
+            Label:
+                bold: True
+                font_size: 40
+                color: 0,0,0,1
+                id: wind_speed
+                text: "0 kt"
+                size_hint_y: 0.2
+                pos: 0,70 
+            Label:
+                bold: True
+                font_size: 40
+                color: 0,0,0,1
+                id: wind_direction
+                text: "000 S"
+                size_hint_y: 0.2
+                pos: 0,120                               
         RelativeLayout:        
             canvas.before:
                 Rotate:
@@ -164,6 +182,9 @@ class WS(GridLayout):
     water_temp = ObjectProperty()
     water_speed = ObjectProperty()
     land_speed = ObjectProperty()
+    wind_speed = ObjectProperty()
+    wind_direction = ObjectProperty()
+
     pressed = False
 
     def __init__(self, **kwargs):
@@ -217,6 +238,23 @@ class WebSocketTest(App):
                     print("Got pitch: " + str(value["value"]["pitch"]))
                     print("Got roll: " + str(value["value"]["roll"]))
                     #self.layout.land_speed.text = str(value["value"]) + " kt"
+                if (value["path"] == "environment.wind.speedApparent"):
+                    print("Got apparent wind speed: " + str(value["value"]))
+                    self.layout.wind_speed.text = str(float("{:.1f}".format(float(value["value"])))) + " kt"
+                if (value["path"] == "environment.wind.angleApparent"):
+                    print("Got apparent wind angle: " + str(value["value"]))
+                    wind_angle_raw = value["value"]
+                    wind_angle_degrees = wind_angle_raw * 57.29
+                    wind_angle_translated = ""
+                    if wind_angle_degrees > 0:
+                        wind_angle_translated = str(int(float("{:.0f}".format(wind_angle_degrees)))) + " S"
+                    if wind_angle_degrees < 0:
+                        wind_angle_translated = str(int(float("{:.0f}".format(wind_angle_degrees)) * -1)) + " P"
+                    print(" - Converted to degrees: " + str(wind_angle_degrees))
+                    print(" - Converted to human: " + wind_angle_translated)
+                    self.layout.wind_direction.text = wind_angle_translated
+
+
 
 
 
