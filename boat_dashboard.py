@@ -22,6 +22,17 @@ import ctypes
 
 
 kv = '''
+<WindDirNeedle@Image>:
+    angle: 0
+    canvas.before:
+        PushMatrix
+        Rotate:
+            angle: root.angle
+            axis: 0,0,1
+            origin: root.center
+    canvas.after:
+        PopMatrix
+
 <WS>:
     cols: 1
 
@@ -37,6 +48,7 @@ kv = '''
     land_speed: land_speed
     wind_speed: wind_speed
     wind_direction: wind_direction
+    wind_needle: wind_needle
 
     RelativeLayout:
         cols: 1
@@ -141,15 +153,11 @@ kv = '''
                 size_hint_y: 0.2
                 pos: 0,120                               
         RelativeLayout:        
-            canvas.before:
-                Rotate:
-                    angle: 0
-                    #axis: 0, 0, 1
-                    origin: self.center
-            Image:
+            WindDirNeedle:
+                id: wind_needle
                 source: 'wind_needle.png'
-                size: self.size
-                pos: 0,0          
+                pos: 0,-12
+ 
 
 
 '''
@@ -167,7 +175,7 @@ if os.name == 'nt':
     screenheight = user32.GetSystemMetrics(1)
 else:
     screenheight=1080
-    screenwidth=1000
+    screenwidth=1920
 
 Config.set('graphics', 'resizable', True)
 
@@ -212,7 +220,7 @@ class WebSocketTest(App):
 
     def build(self):
         Window.borderless = False
-        Window.size = 400, screenheight-45
+        Window.size = 260, screenheight-45
         Window.top = 0
         Window.left = screenwidth - 400
         self.layout = WS()
@@ -253,6 +261,7 @@ class WebSocketTest(App):
                     print(" - Converted to degrees: " + str(wind_angle_degrees))
                     print(" - Converted to human: " + wind_angle_translated)
                     self.layout.wind_direction.text = wind_angle_translated
+                    self.layout.wind_needle.angle = int(wind_angle_degrees) * -1
 
 
 
