@@ -223,6 +223,7 @@ class WebSocketTest(App):
         Window.size = 350, screenheight-40
         Window.top = 0
         Window.left = screenwidth - 350
+        self.layout = WS()
         return self.layout
 
     def on_ws_message(self, ws, message):
