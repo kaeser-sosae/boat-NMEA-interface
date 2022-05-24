@@ -222,7 +222,7 @@ class WebSocketTest(App):
         Window.borderless = False
         Window.size = 260, screenheight-45
         Window.top = 0
-        Window.left = screenwidth - 400
+        Window.left = screenwidth - 260
         self.layout = WS()
         return self.layout
 
