@@ -156,7 +156,7 @@ kv = '''
             WindDirNeedle:
                 id: wind_needle
                 source: 'wind_needle.png'
-                pos: 0,-12
+                pos: 0,0
  
 
 
