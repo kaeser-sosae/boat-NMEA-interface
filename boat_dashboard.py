@@ -59,60 +59,75 @@ kv = '''
     water_speed: water_speed
     land_speed: land_speed
 
-    GridLayout:
+    RelativeLayout:
         cols: 1
         canvas.before:
             Color:
                 rgba: 255,255,255,1
             Rectangle:
                 size: self.size
-                pos: self.pos
+                pos: 0,0
         canvas:
             Color:
                 rgba: 0,0,0,1
             Rectangle:
-                size: self.width-20, self.height-15
-                pos: (10,root.height-self.height+5)
+                size: self.width-20,self.height-20
+                pos: 10,10
         Label:
             font_size: 30
             id: water_temp_label
             text: "Water Temperature"
             size_hint_y: 0.2
+            pos: 0,500
         Label:
             font_size: 75
             id: water_temp
             text: "0"
-    BoxLayout:
+    RelativeLayout:
+        cols: 1
         canvas.before:
             Color:
                 rgba: 255,255,255,1
             Rectangle:
                 size: self.size
-                pos: self.pos
+                pos: 0,0
         canvas:
             Color:
                 rgba: 0,0,0,1
             Rectangle:
-                size: self.width-20, self.height-10
-                pos: (10,root.height-(self.height*2)+5) 
+                size: self.width-20,self.height-10
+                pos: 10,10
+        Label:
+            font_size: 30
+            id: water_speed_label
+            text: "Water Speed"
+            size_hint_y: 0.2
+            pos: 0,500
         Label:
             font_size: 75
             id: water_speed
-            text: "0 kt"
+            text: "0"
 
-    BoxLayout:
+    RelativeLayout:
+        cols: 1
         canvas.before:
             Color:
                 rgba: 255,255,255,1
             Rectangle:
                 size: self.size
-                pos: self.pos
+                pos: 0,0
         canvas:
             Color:
                 rgba: 0,0,0,1
             Rectangle:
-                size: self.width-20, self.height-15
-                pos: (10,root.height-(self.height*3)+10)     
+                size: self.width-20,self.height-10
+                pos: 10,10
+        Label:
+            font_size: 30
+            id: land_speed_label
+            text: "Land Speed"
+            size_hint_y: 0.2
+            pos: 0,500
         Label:
             font_size: 75
             id: land_speed
