@@ -25,29 +25,6 @@ kv = '''
 <WS>:
     cols: 1
 
-    # canvas:
-    #     Rectangle:
-    #         pos: (0,self.height/3*3)
-    #         size: (self.width,10)
-    #     Rectangle:
-    #         pos: (0,self.height/3*2)
-    #         size: (self.width,10)
-    #     Rectangle:
-    #         pos: (0,self.height/3)
-    #         size: (self.width,10)
-    #     Rectangle:
-    #         pos: (0,0)
-    #         size: (10,self.height)
-    #     Rectangle:
-    #         pos: (self.width-10,0)
-    #         size: (10,self.height)  
-    #     Rectangle:
-    #         pos: (0,self.height-10)
-    #         size: (self.width,10) 
-    #     Rectangle:
-    #         pos: (0,0)
-    #         size: (self.width,10) 
-
     canvas.before:
         Color:
             rgba: 0, 0, 0, 1.0
@@ -133,6 +110,28 @@ kv = '''
             font_size: 75
             id: land_speed
             text: "0 kt"
+    RelativeLayout:
+        cols: 1
+        canvas.before:
+            Color:
+                rgba: 255,255,255,1
+            Rectangle:
+                size: self.size
+                pos: 0,0
+        RelativeLayout:
+            Image:
+                source: 'wind_background.png'
+                size: 400,400
+        RelativeLayout:        
+            canvas.before:
+                Rotate:
+                    angle: 0
+                    #axis: 0, 0, 1
+                    origin: self.center
+            Image:
+                source: 'wind_needle.png'
+                size: self.size
+                pos: 0,0          
 
 
 '''
