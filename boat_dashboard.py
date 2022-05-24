@@ -143,7 +143,7 @@ kv = '''
                 id: wind_speed
                 text: "0 kt"
                 size_hint_y: 0.2
-                pos: 0,35 
+                pos: 0,15 
             Label:
                 bold: True
                 font_size: 20
@@ -151,7 +151,7 @@ kv = '''
                 id: wind_direction
                 text: "000 S"
                 size_hint_y: 0.2
-                pos: 0,60                               
+                pos: 0,50                               
         RelativeLayout:        
             WindDirNeedle:
                 id: wind_needle
