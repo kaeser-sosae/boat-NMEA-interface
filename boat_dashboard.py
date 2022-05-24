@@ -138,20 +138,20 @@ kv = '''
                 size: 400,400
             Label:
                 bold: True
-                font_size: 40
+                font_size: 20
                 color: 0,0,0,1
                 id: wind_speed
                 text: "0 kt"
                 size_hint_y: 0.2
-                pos: 0,70 
+                pos: 0,30 
             Label:
                 bold: True
-                font_size: 40
+                font_size: 20
                 color: 0,0,0,1
                 id: wind_direction
                 text: "000 S"
                 size_hint_y: 0.2
-                pos: 0,120                               
+                pos: 0,80                               
         RelativeLayout:        
             WindDirNeedle:
                 id: wind_needle
