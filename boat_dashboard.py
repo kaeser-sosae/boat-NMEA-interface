@@ -108,11 +108,11 @@ kv = '''
                 pos: 0,30
             Label:
                 bold: True
-                font_size: 30
+                font_size: 45
                 color: 0,0,0,1
                 id: gps_speed
                 text: "0 kt"
-                pos: 0,0                             
+                pos: 0,-30                             
             # Label:
             #     bold: True
             #     font_size: 30
@@ -285,7 +285,7 @@ class WebSocketTest(App):
                 if (value["path"] == "navigation.speedThroughWater"):
                     print("Got water speed: " + str(value["value"]))
                     self.layout.water_speed.text = str(value["value"]) + " kt"
-                    self.layout.gps_speed.text = str(value["value"]) + " kt"
+                    self.layout.gps_speed.text = str(int(float("{:.1f}".format(value["value"])))) + " kt"
                 if (value["path"] == "navigation.speedOverGround"):
                     print("Got land speed: " + str(value["value"]))
                     self.layout.land_speed.text = str(value["value"]) + " kt"
