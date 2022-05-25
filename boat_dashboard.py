@@ -73,6 +73,7 @@ kv = '''
     wind_needle: wind_needle
     #dir_needle: dir_needle
     dir_dial: dir_dial
+    dir_heading: dir_heading
 
     RelativeLayout:
         cols: 1
@@ -92,7 +93,7 @@ kv = '''
                 source: 'direction_and_depth_guage_panels.png'                
             Label:
                 bold: True
-                font_size: 40
+                font_size: 30
                 color: 0,0,0,1
                 id: dir_heading
                 text: "asd"
@@ -293,7 +294,7 @@ class WebSocketTest(App):
 
                     ## Code to move the direction dial
                     self.layout.dir_dial.angle = int(wind_angle_degrees) * -1
-                    self.layout.dir_dial.text = wind_angle_translated_clean + " " + degree_sign
+                    self.layout.dir_heading.text = wind_angle_translated_clean + " " + degree_sign
 
 
 
