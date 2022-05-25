@@ -98,14 +98,14 @@ kv = '''
                 id: dir_heading
                 text: "asd"
                 size_hint_y: 0.2
-                pos: 5,5
-            Label:
-                bold: True
-                font_size: 30
-                color: 0,0,0,1
-                text: "M"
-                size_hint_y: 0.2
-                pos: 20,5                
+                pos: 0,5
+            # Label:
+            #     bold: True
+            #     font_size: 30
+            #     color: 0,0,0,1
+            #     text: "M"
+            #     size_hint_y: 0.2
+            #     pos: 20,5                
             # Label:
             #     bold: True
             #     font_size: 20
@@ -301,7 +301,7 @@ class WebSocketTest(App):
 
                     ## Code to move the direction dial
                     self.layout.dir_dial.angle = int(wind_angle_degrees) * -1
-                    self.layout.dir_heading.text = wind_angle_translated_clean + " " + degree_sign
+                    self.layout.dir_heading.text = wind_angle_translated_clean + " " + degree_sign + " M"
 
 
 
