@@ -42,6 +42,17 @@ kv = '''
             axis: 0,0,1
             origin: root.center
     canvas.after:
+        PopMatrix 
+
+<DirDial@Image>:
+    angle: 0
+    canvas.before:
+        PushMatrix
+        Rotate:
+            angle: root.angle
+            axis: 0,0,1
+            origin: root.center
+    canvas.after:
         PopMatrix        
 
 <WS>:
@@ -61,6 +72,7 @@ kv = '''
     wind_direction: wind_direction
     wind_needle: wind_needle
     #dir_needle: dir_needle
+    dir_dial: dir_dial
 
     RelativeLayout:
         cols: 1
@@ -73,7 +85,8 @@ kv = '''
         RelativeLayout:
             Image:
                 source: 'direction_and_depth_guage_color_wheel.png'
-            Image:
+            DirDial:
+                id: dir_dial
                 source: 'direction_and_depth_guage_dial.png'
             Image:
                 source: 'direction_and_depth_guage_panels.png'                
@@ -274,6 +287,8 @@ class WebSocketTest(App):
                     print(" - Converted to human: " + wind_angle_translated)
                     self.layout.wind_direction.text = wind_angle_translated
                     self.layout.wind_needle.angle = int(wind_angle_degrees) * -1
+                    self.layout.dir_dial.angle = int(wind_angle_degrees) * -1
+
 
 
 
