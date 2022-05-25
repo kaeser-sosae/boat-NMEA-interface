@@ -56,7 +56,29 @@ kv = '''
             axis: 0,0,1
             origin: root.center
     canvas.after:
-        PopMatrix        
+        PopMatrix 
+
+<YachtSide@Image>:
+    angle: 0
+    canvas.before:
+        PushMatrix
+        Rotate:
+            angle: root.angle
+            axis: 0,0,1
+            origin: root.center
+    canvas.after:
+        PopMatrix 
+
+<YachtFront@Image>:
+    angle: 0
+    canvas.before:
+        PushMatrix
+        Rotate:
+            angle: root.angle
+            axis: 0,0,1
+            origin: root.center
+    canvas.after:
+        PopMatrix                        
 
 <WS>:
     cols: 1
@@ -139,7 +161,7 @@ kv = '''
     RelativeLayout:
         Image:
             source: 'tilt_heel_sky.png'
-        DirDial:
+        YachtFront:
             id: heel_yacht
             source: 'yacht_front.png'
         Image:
@@ -165,7 +187,7 @@ kv = '''
     RelativeLayout:
         Image:
             source: 'tilt_heel_sky.png'
-        DirDial:
+        YachtSide:
             id: tilt_yacht
             source: 'yacht_side.png'
         Image:
