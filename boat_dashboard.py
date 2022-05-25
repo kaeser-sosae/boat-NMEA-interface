@@ -114,13 +114,6 @@ kv = '''
                 size: self.width-20,self.height-20
                 pos: 10,10
         Label:
-            font_size: 30
-            id: water_temp_label
-            text: "Water Temperature"
-            #size_hint_y: 0.1
-            size: self.width, 100
-            pos: 0,250
-        Label:
             font_size: 75
             id: water_temp
             text: "0"
@@ -138,12 +131,6 @@ kv = '''
             Rectangle:
                 size: self.width-20,self.height-10
                 pos: 10,10
-        Label:
-            font_size: 30
-            id: water_speed_label
-            text: "Water Speed"
-            size_hint_y: 0.2
-            pos: 0,500
         Label:
             font_size: 75
             id: water_speed
