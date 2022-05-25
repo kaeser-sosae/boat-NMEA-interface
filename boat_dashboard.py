@@ -99,6 +99,13 @@ kv = '''
                 text: "asd"
                 size_hint_y: 0.2
                 pos: 0,5
+            Label:
+                bold: True
+                italic: True
+                font_size: 10
+                color: 0,0,0,1
+                text: "Speed"
+                pos: 20,0                
             # Label:
             #     bold: True
             #     font_size: 30
