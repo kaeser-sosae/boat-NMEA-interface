@@ -74,6 +74,7 @@ kv = '''
     #dir_needle: dir_needle
     dir_dial: dir_dial
     dir_heading: dir_heading
+    gps_speed: gps_speed
 
     RelativeLayout:
         cols: 1
@@ -100,12 +101,18 @@ kv = '''
                 size_hint_y: 0.2
                 pos: 0,5
             Label:
-                bold: True
                 italic: True
                 font_size: 20
                 color: 0,0,0,1
                 text: "Speed"
-                pos: 0,0                
+                pos: 0,30
+            Label:
+                bold: True
+                font_size: 30
+                color: 0,0,0,1
+                id: gps_speed
+                text: "0 kt"
+                pos: 0,0                             
             # Label:
             #     bold: True
             #     font_size: 30
@@ -278,6 +285,7 @@ class WebSocketTest(App):
                 if (value["path"] == "navigation.speedThroughWater"):
                     print("Got water speed: " + str(value["value"]))
                     self.layout.water_speed.text = str(value["value"]) + " kt"
+                    self.layout.gps_speed.text = str(value["value"]) + " kt"
                 if (value["path"] == "navigation.speedOverGround"):
                     print("Got land speed: " + str(value["value"]))
                     self.layout.land_speed.text = str(value["value"]) + " kt"
