@@ -112,7 +112,7 @@ kv = '''
                 color: 0,0,0,1
                 id: gps_speed
                 text: "0 kt"
-                pos: 0,-30                             
+                pos: 0,-20                             
             # Label:
             #     bold: True
             #     font_size: 30
