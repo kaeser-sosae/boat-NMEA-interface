@@ -285,7 +285,7 @@ class WebSocketTest(App):
                 if (value["path"] == "navigation.speedThroughWater"):
                     print("Got water speed: " + str(value["value"]))
                     self.layout.water_speed.text = str(value["value"]) + " kt"
-                    self.layout.gps_speed.text = str(int(float("{:.2f}".format(value["value"])))) + " kt"
+                    self.layout.gps_speed.text = str(value["value"]) + " kt"
                 if (value["path"] == "navigation.speedOverGround"):
                     print("Got land speed: " + str(value["value"]))
                     self.layout.land_speed.text = str(value["value"]) + " kt"
