@@ -97,8 +97,15 @@ kv = '''
                 color: 0,0,0,1
                 id: dir_heading
                 text: "asd"
-                size_hint_y: 0.2
-                pos: 0,5
+                #size_hint_y: 0.2
+                pos: 5,5
+            Label:
+                bold: True
+                font_size: 30
+                color: 0,0,0,1
+                text: "M"
+                #size_hint_y: 0.2
+                pos: 20,5                
             # Label:
             #     bold: True
             #     font_size: 20
