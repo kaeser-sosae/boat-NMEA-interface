@@ -102,10 +102,10 @@ kv = '''
             Label:
                 bold: True
                 italic: True
-                font_size: 10
+                font_size: 20
                 color: 0,0,0,1
                 text: "Speed"
-                pos: 20,0                
+                pos: 0,0                
             # Label:
             #     bold: True
             #     font_size: 30
