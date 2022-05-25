@@ -72,8 +72,11 @@ kv = '''
                 pos: 0,0
         RelativeLayout:
             Image:
-                source: 'speed_background.png'
-                #size: 400,400
+                source: 'direction_and_depth_guage_color_wheel.png'
+            Image:
+                source: 'direction_and_depth_guage_dial.png'
+            Image:
+                source: 'direction_and_depth_guage_panels.png'                
             # Label:
             #     bold: True
             #     font_size: 20
