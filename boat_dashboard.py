@@ -92,12 +92,12 @@ kv = '''
                 source: 'direction_and_depth_guage_panels.png'                
             Label:
                 bold: True
-                font_size: 60
+                font_size: 40
                 color: 0,0,0,1
                 id: dir_heading
                 text: "asd"
                 size_hint_y: 0.2
-                pos: 0,25 
+                pos: 0,15
             # Label:
             #     bold: True
             #     font_size: 20
@@ -279,10 +279,13 @@ class WebSocketTest(App):
                     wind_angle_raw = value["value"]
                     wind_angle_degrees = wind_angle_raw * 57.29
                     wind_angle_translated = ""
+                    wind_angle_translated_clean = ""
                     if wind_angle_degrees > 0:
                         wind_angle_translated = str(int(float("{:.0f}".format(wind_angle_degrees)))) + " S"
+                        wind_angle_translated_clean = str(int(float("{:.0f}".format(wind_angle_degrees))))
                     if wind_angle_degrees < 0:
                         wind_angle_translated = str(int(float("{:.0f}".format(wind_angle_degrees)) * -1)) + " P"
+                        wind_angle_translated_clean = str(int(float("{:.0f}".format(wind_angle_degrees)) * -1))
                     print(" - Converted to degrees: " + str(wind_angle_degrees))
                     print(" - Converted to human: " + wind_angle_translated)
                     self.layout.wind_direction.text = wind_angle_translated
@@ -290,6 +293,7 @@ class WebSocketTest(App):
 
                     ## Code to move the direction dial
                     self.layout.dir_dial.angle = int(wind_angle_degrees) * -1
+                    self.layout.dir_dial.text = wind_angle_translated_clean + " " + degree_sign
 
 
 
