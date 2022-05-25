@@ -98,7 +98,7 @@ kv = '''
                 id: dir_heading
                 text: "asd"
                 size_hint_y: 0.2
-                pos: 0,15
+                pos: 0,5
             # Label:
             #     bold: True
             #     font_size: 20
