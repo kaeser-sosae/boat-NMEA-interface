@@ -267,7 +267,9 @@ class WebSocketTest(App):
 
     def build(self):
         Window.borderless = False
-        Window.size = 310, screenheight-40
+        #Temp
+        #Window.size = 318, 1062
+        #Window.size = 310, screenheight-40
         Window.top = 0
         Window.left = screenwidth - 310
         self.layout = WS()
@@ -278,6 +280,7 @@ class WebSocketTest(App):
         json_message = json.loads(message)
 
         for update in json_message["updates"]:
+            print(Window.size)
             for value in update["values"]:
                 if (value["path"] == "environment.water.temperature"):
                     print("Got water temp: " + str(value["value"]))
