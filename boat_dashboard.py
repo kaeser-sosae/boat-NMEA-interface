@@ -4,6 +4,10 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.properties import StringProperty, ObjectProperty
 from kivy.clock import Clock
 from kivy.logger import Logger
+from kivy.core.text import LabelBase
+from kivy.config import Config
+from kivy.core.window import Window
+
 
 import websocket
 
@@ -13,13 +17,12 @@ import time
 
 import json
 
-from kivy.config import Config
-from kivy.core.window import Window
+
 
 import os
 import ctypes
 
-
+LabelBase.register(name='CFLCD', fn_regular='CFLCD-Regular.ttf')
 
 kv = '''
 <WindDirNeedle@Image>:
@@ -66,15 +69,15 @@ kv = '''
             size: self.size
 
     water_temp: water_temp
-    water_speed: water_speed
-    #land_speed: land_speed
     wind_speed: wind_speed
-    wind_direction: wind_direction
     wind_needle: wind_needle
-    #dir_needle: dir_needle
     dir_dial: dir_dial
     dir_heading: dir_heading
     gps_speed: gps_speed
+    heel_yacht: heel_yacht
+    tilt_yacht: tilt_yacht
+    heel_actual: heel_actual
+    tilt_actual: tilt_actual
 
     RelativeLayout:
         cols: 1
@@ -94,6 +97,7 @@ kv = '''
                 source: 'direction_and_depth_guage_panels.png'                
             Label:
                 bold: True
+                italic: True
                 font_size: 30
                 color: 0,0,0,1
                 id: dir_heading
@@ -104,72 +108,86 @@ kv = '''
                 italic: True
                 font_size: 20
                 color: 0,0,0,1
-                text: "Speed"
+                text: "GPS Speed"
                 pos: 0,30
             Label:
                 bold: True
+                italic: True
                 font_size: 45
                 color: 0,0,0,1
                 id: gps_speed
                 text: "0 kt"
-                pos: 0,-15                             
-            # Label:
-            #     bold: True
-            #     font_size: 30
-            #     color: 0,0,0,1
-            #     text: "M"
-            #     size_hint_y: 0.2
-            #     pos: 20,5                
-            # Label:
-            #     bold: True
-            #     font_size: 20
-            #     color: 0,0,0,1
-            #     id: wind_direction
-            #     text: "000 S"
-            #     size_hint_y: 0.2
-            #     pos: 0,50                               
-        # RelativeLayout:        
-        #     DirNeedle:
-        #         id: dir_needle
-        #         source: ''
-        #         pos: 0,-6
+                pos: 0,-15
+            Label:
+                #bold: True
+                italic: True
+                font_size: 12
+                color: 0,0,0,1
+                text: "Water Temp"
+                size_hint_y: 0.2
+                pos: -91,220
+            Label:
+                id: water_temp
+                bold: True
+                italic: True
+                font_size: 28
+                color: 0,0,0,1
+                text: "Water Temp"
+                size_hint_y: 0.2
+                pos: -91,199                                                           
 
     RelativeLayout:
-        cols: 1
-        canvas.before:
-            Color:
-                rgba: 255,255,255,1
-            Rectangle:
-                size: self.size
-                pos: 0,0
-        canvas:
-            Color:
-                rgba: 0,0,0,1
-            Rectangle:
-                size: self.width-20,self.height-20
-                pos: 10,10
+        Image:
+            source: 'tilt_heel_sky.png'
+        DirDial:
+            id: heel_yacht
+            source: 'yacht_front.png'
+        Image:
+            source: 'tilt_heel_water.png'
+        Image:
+            source: 'tilt_heel_surround.png'
+        Image:
+            source: 'tilt_heel_bottom_panel.png'  
         Label:
-            font_size: 75
-            id: water_temp
+            italic: True
+            font_size: 20
+            color: 0,0,0,1
+            text: "Heel"
+            pos: 0,-65
+        Label:
+            bold: True
+            italic: True
+            font_size: 45
+            color: 0,0,0,1
+            id: heel_actual
             text: "0"
+            pos: 0,-95                               
     RelativeLayout:
-        cols: 1
-        canvas.before:
-            Color:
-                rgba: 255,255,255,1
-            Rectangle:
-                size: self.size
-                pos: 0,0
-        canvas:
-            Color:
-                rgba: 0,0,0,1
-            Rectangle:
-                size: self.width-20,self.height-10
-                pos: 10,10
+        Image:
+            source: 'tilt_heel_sky.png'
+        DirDial:
+            id: tilt_yacht
+            source: 'yacht_side.png'
+        Image:
+            source: 'tilt_heel_water.png'
+        Image:
+            source: 'tilt_heel_surround.png'
+        Image:
+            source: 'tilt_heel_bottom_panel.png'   
         Label:
-            font_size: 75
-            id: water_speed
+            italic: True
+            font_size: 20
+            color: 0,0,0,1
+            text: "Tilt"
+            pos: 0,-65
+        Label:
+            bold: True
+            italic: True
+            font_size: 45
+            color: 0,0,0,1
+            id: tilt_actual
             text: "0"
+            pos: 0,-95           
 
     RelativeLayout:
         cols: 1
@@ -182,23 +200,31 @@ kv = '''
         RelativeLayout:
             Image:
                 source: 'wind_background.png'
-                #size: 400,400
+            Label:
+                #bold: True
+                italic: True
+                font_size: 15
+                color: 0,0,0,1
+                text: "Wind Speed"
+                size_hint_y: 0.2
+                pos: 0,60 
             Label:
                 bold: True
-                font_size: 20
+                font_size: 35
                 color: 0,0,0,1
                 id: wind_speed
                 text: "0 kt"
                 size_hint_y: 0.2
-                pos: 0,25 
+                pos: 0,35
             Label:
-                bold: True
-                font_size: 20
+                #bold: True
+                italic: True
+                font_size: 15
                 color: 0,0,0,1
-                id: wind_direction
-                text: "000 S"
+                text: "Knots"
                 size_hint_y: 0.2
-                pos: 0,50                               
+                pos: 0,12                
+                          
         RelativeLayout:        
             WindDirNeedle:
                 id: wind_needle
@@ -267,9 +293,8 @@ class WebSocketTest(App):
 
     def build(self):
         Window.borderless = False
-        #Temp
-        #Window.size = 318, 1062
-        Window.size = 310, screenheight-40
+        #Window.size = 155, 520 # This is temp for viewing on a Mac
+        Window.size = 310, screenheight-40 # This is real setting for 1080p
         Window.top = 0
         Window.left = screenwidth - 310
         self.layout = WS()
@@ -284,7 +309,7 @@ class WebSocketTest(App):
             for value in update["values"]:
                 if (value["path"] == "environment.water.temperature"):
                     print("Got water temp: " + str(value["value"]))
-                    self.layout.water_temp.text = str(float("{:.2f}".format(float(value["value"]) - 273.15))) + " " + degree_sign + "C"
+                    self.layout.water_temp.text = str(float("{:.1f}".format(float(value["value"]) - 273.15))) #+ " " + degree_sign + "C"
                 if (value["path"] == "navigation.speedThroughWater"):
                     print("Got water speed: " + str(value["value"]))
                     self.layout.water_speed.text = str(value["value"]) + " kt"
@@ -293,13 +318,45 @@ class WebSocketTest(App):
                     print("Got land speed: " + str(value["value"]))
                     self.layout.land_speed.text = str(value["value"]) + " kt"
                 if (value["path"] == "navigation.attitude"):
-                    print("Got yaw: " + str(value["value"]["yaw"]))
-                    print("Got pitch: " + str(value["value"]["pitch"]))
+                    #print("Got yaw: " + str(value["value"]["yaw"]))
+                    
                     print("Got roll: " + str(value["value"]["roll"]))
-                    #self.layout.land_speed.text = str(value["value"]) + " kt"
+
+                    heel_angle_raw = value["value"]["roll"]
+                    heel_angle_degrees = heel_angle_raw * 57.29
+                    heel_angle_translated = ""
+                    heel_angle_translated_clean = ""
+                    if heel_angle_degrees > 0:
+                        heel_angle_translated = str(int(float("{:.0f}".format(heel_angle_degrees)))) + degree_sign + " S"
+                        heel_angle_translated_clean = str(int(float("{:.0f}".format(heel_angle_degrees))))
+                    if heel_angle_degrees < 0:
+                        heel_angle_translated = str(int(float("{:.0f}".format(heel_angle_degrees)) * -1)) + degree_sign + " P"
+                        heel_angle_translated_clean = str(int(float("{:.0f}".format(heel_angle_degrees)) * -1))
+                    print(" - Converted to degrees: " + str(heel_angle_degrees))
+                    print(" - Converted to human: " + heel_angle_translated)
+                    self.layout.heel_yacht.angle = int(heel_angle_degrees) * -1
+                    self.layout.heel_actual.text = heel_angle_translated
+
+                    print("Got pitch: " + str(value["value"]["pitch"]))
+
+                    tilt_angle_raw = value["value"]["pitch"]
+                    tilt_angle_degrees = tilt_angle_raw * 57.29
+                    tilt_angle_translated = "0"
+                    tilt_angle_translated_clean = ""
+                    if tilt_angle_degrees > 0:
+                        tilt_angle_translated = str(int(float("{:.0f}".format(tilt_angle_degrees)))) + degree_sign + " S"
+                        tilt_angle_translated_clean = str(int(float("{:.0f}".format(tilt_angle_degrees))))
+                    if tilt_angle_degrees < 0:
+                        tilt_angle_translated = str(int(float("{:.0f}".format(tilt_angle_degrees)) * -1)) + degree_sign + " B"
+                        tilt_angle_translated_clean = str(int(float("{:.0f}".format(tilt_angle_degrees)) * -1))
+                    print(" - Converted to degrees: " + str(tilt_angle_degrees))
+                    print(" - Converted to human: " + tilt_angle_translated)
+                    self.layout.tilt_yacht.angle = int(tilt_angle_degrees)
+                    self.layout.tilt_actual.text = tilt_angle_translated
+
                 if (value["path"] == "environment.wind.speedApparent"):
                     print("Got apparent wind speed: " + str(value["value"]))
-                    self.layout.wind_speed.text = str(float("{:.1f}".format(float(value["value"])))) + " kt"
+                    self.layout.wind_speed.text = str(float("{:.1f}".format(float(value["value"])))) + ""
                 if (value["path"] == "environment.wind.angleApparent"):
                     print("Got apparent wind angle: " + str(value["value"]))
                     wind_angle_raw = value["value"]
@@ -314,10 +371,10 @@ class WebSocketTest(App):
                         wind_angle_translated_clean = str(int(float("{:.0f}".format(wind_angle_degrees)) * -1))
                     print(" - Converted to degrees: " + str(wind_angle_degrees))
                     print(" - Converted to human: " + wind_angle_translated)
-                    self.layout.wind_direction.text = wind_angle_translated
+                    #self.layout.wind_direction.text = wind_angle_translated
                     self.layout.wind_needle.angle = int(wind_angle_degrees) * -1
 
-                    ## Code to move the direction dial
+                    ## Code to move the direction dial - change this later
                     self.layout.dir_dial.angle = int(wind_angle_degrees) * -1
                     self.layout.dir_heading.text = wind_angle_translated_clean + " " + degree_sign + " M"
 
