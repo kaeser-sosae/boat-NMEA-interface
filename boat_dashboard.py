@@ -23,6 +23,9 @@ import os
 import ctypes
 
 LabelBase.register(name='CFLCD', fn_regular='CFLCD-Regular.ttf')
+LabelBase.register(name='SFProSB', fn_regular='SF-Pro-Display-Semibold.otf')
+
+degree_sign = u'\N{DEGREE SIGN}'
 
 kv = '''
 <WindDirNeedle@Image>:
@@ -78,188 +81,385 @@ kv = '''
             axis: 0,0,1
             origin: root.center
     canvas.after:
-        PopMatrix                        
+        PopMatrix
+
+<Needle@Image>:
+    angle: 0
+    canvas.before:
+        PushMatrix
+        Rotate:
+            angle: root.angle
+            axis: 0,0,1
+            origin: root.center
+    canvas.after:
+        PopMatrix 
+
+<SpeedNeedle@Image>:
+    angle: 0
+    canvas.before:
+        PushMatrix
+        Rotate:
+            #angle: root.angle
+            angle: 44
+            axis: 0,0,1
+            origin: root.center
+    canvas.after:
+        PopMatrix 
+
+<SOGNeedle@Image>:
+    angle: 0
+    canvas.before:
+        PushMatrix
+        Rotate:
+            #angle: root.angle
+            angle: 44
+            axis: 0,0,1
+            origin: root.center
+    canvas.after:
+        PopMatrix 
+
+<RPMsNeedle@Image>:
+    angle: 0
+    canvas.before:
+        PushMatrix
+        Rotate:
+            #angle: root.angle
+            angle: 43
+            axis: 0,0,1
+            origin: root.center
+    canvas.after:
+        PopMatrix                         
+
+
 
 <WS>:
     cols: 1
 
     canvas.before:
-        Color:
-            rgba: 0, 0, 0, 1.0
         Rectangle:
             pos: self.pos
             size: self.size
+            source: 'background.png'
 
     water_temp: water_temp
-    wind_speed: wind_speed
-    wind_needle: wind_needle
-    dir_dial: dir_dial
-    dir_heading: dir_heading
-    gps_speed: gps_speed
+    water_depth: water_depth
+    # wind_speed: wind_speed
+    # wind_needle: wind_needle
+    # dir_dial: dir_dial
+    # dir_heading: dir_heading
+    # gps_speed: gps_speed
     heel_yacht: heel_yacht
     tilt_yacht: tilt_yacht
-    heel_actual: heel_actual
-    tilt_actual: tilt_actual
+    # heel_actual: heel_actual
+    # tilt_actual: tilt_actual
+    engine_hours: engine_hours
+    engine_battery: engine_battery
+    house_battery: house_battery
+    water_tank_needle: water_tank_needle
+    fuel_tank_needle: fuel_tank_needle
+    coolant_temp_needle: coolant_temp_needle
 
-    RelativeLayout:
-        cols: 1
-        canvas.before:
-            Color:
-                rgba: 0,0,0,1
-            Rectangle:
-                size: self.size
-                pos: 0,0
-        RelativeLayout:
-            Image:
-                source: 'direction_and_depth_guage_color_wheel.png'
-            DirDial:
-                id: dir_dial
-                source: 'direction_and_depth_guage_dial.png'
-            Image:
-                source: 'direction_and_depth_guage_panels.png'                
-            Label:
-                bold: True
-                italic: True
-                font_size: 30
-                color: 0,0,0,1
-                id: dir_heading
-                text: "asd"
-                size_hint_y: 0.2
-                pos: 0,5
-            Label:
-                italic: True
-                font_size: 20
-                color: 0,0,0,1
-                text: "GPS Speed"
-                pos: 0,30
-            Label:
-                bold: True
-                italic: True
-                font_size: 45
-                color: 0,0,0,1
-                id: gps_speed
-                text: "0 kt"
-                pos: 0,-15
-            Label:
-                #bold: True
-                italic: True
-                font_size: 12
-                color: 0,0,0,1
-                text: "Water Temp"
-                size_hint_y: 0.2
-                pos: -91,220
-            Label:
-                id: water_temp
-                bold: True
-                italic: True
-                font_size: 28
-                color: 0,0,0,1
-                text: "Water Temp"
-                size_hint_y: 0.2
-                pos: -91,199                                                           
+    FloatLayout:
 
-    RelativeLayout:
+        # Yacht Tilt Guage
         Image:
-            source: 'tilt_heel_sky.png'
+            source: 'tilt_heel_sky_v2.png'
+            allow_stretch: True
+            size_hint: 0.1,0.1
+            pos: 450,1770
         YachtFront:
             id: heel_yacht
             source: 'yacht_front.png'
-        Image:
-            source: 'tilt_heel_water.png'
-        Image:
-            source: 'tilt_heel_surround.png'
-        Image:
-            source: 'tilt_heel_bottom_panel.png'  
+            allow_stretch: True
+            size_hint: 0.18,0.18
+            pos: 300, 1590
         Label:
-            italic: True
-            font_size: 20
-            color: 0,0,0,1
-            text: "Heel"
-            pos: 0,-65
-        Label:
-            bold: True
-            italic: True
-            font_size: 45
-            color: 0,0,0,1
-            id: heel_actual
-            text: "0"
-            pos: 0,-95                               
-    RelativeLayout:
+            id: tilt_value
+            text: "360"
+            size_hint: 0.2,0.2
+            pos: 900, 1475
+            font_name: "SFProSB"
+            rgba: 245,245,245,1
+            font_size: 100 
+
+        # Yacht Heel Guage
         Image:
-            source: 'tilt_heel_sky.png'
+            source: 'tilt_heel_sky_v2.png'
+            allow_stretch: True
+            size_hint: 0.1,0.1
+            pos: 1090,1770            
         YachtSide:
             id: tilt_yacht
             source: 'yacht_side.png'
-        Image:
-            source: 'tilt_heel_water.png'
-        Image:
-            source: 'tilt_heel_surround.png'
-        Image:
-            source: 'tilt_heel_bottom_panel.png'   
+            allow_stretch: True
+            size_hint: 0.18,0.18 
+            pos: 940, 1590
         Label:
-            italic: True
-            font_size: 20
-            color: 0,0,0,1
-            text: "Tilt"
-            pos: 0,-65
-        Label:
-            bold: True
-            italic: True
-            font_size: 45
-            color: 0,0,0,1
-            id: tilt_actual
-            text: "0"
-            pos: 0,-95           
+            id: heel_value
+            text: "360"
+            size_hint: 0.2,0.2
+            pos: 260, 1475
+            font_name: "SFProSB"
+            rgba: 245,245,245,1
+            font_size: 100
 
-    RelativeLayout:
-        cols: 1
-        canvas.before:
-            Color:
-                rgba: 0,0,0,1
-            Rectangle:
-                size: self.size
-                pos: 0,0
-        RelativeLayout:
-            Image:
-                source: 'wind_background.png'
-            Label:
-                #bold: True
-                italic: True
-                font_size: 15
-                color: 0,0,0,1
-                text: "Wind Speed"
-                size_hint_y: 0.2
-                pos: 0,60 
-            Label:
-                bold: True
-                font_size: 35
-                color: 0,0,0,1
-                id: wind_speed
-                text: "0 kt"
-                size_hint_y: 0.2
-                pos: 0,35
-            Label:
-                #bold: True
-                italic: True
-                font_size: 15
-                color: 0,0,0,1
-                text: "Knots"
-                size_hint_y: 0.2
-                pos: 0,12                
+        # Water Depth Guage
+        Label:
+            id: water_depth
+            text: "3.65 m"
+            size_hint: 0.2,0.2
+            pos: 1547, 1570
+            font_name: "SFProSB"
+            rgba: 245,245,245,1
+            font_size: 100
+
+        # Water Temp
+        Label:
+            id: water_temp
+            text: "21.5"
+            size_hint: 0.2,0.2
+            pos: 2180, 1570
+            font_name: "SFProSB"
+            rgba: 245,245,245,1
+            font_size: 100
+
+        # Engine Hours
+        Label:
+            id: engine_hours
+            text: "347"
+            size_hint: 0.2,0.2
+            pos: 2820, 105
+            font_name: "SFProSB"
+            rgba: 245,245,245,1
+            font_size: 100 
+
+        # Engine Battery
+        Label:
+            id: engine_battery
+            text: "12.8 v"
+            size_hint: 0.2,0.2
+            pos: 260, 105
+            font_name: "SFProSB"
+            rgba: 245,245,245,1
+            font_size: 100 
+
+        # House Battery
+        Label:
+            id: house_battery
+            text: "13.2 v"
+            size_hint: 0.2,0.2
+            pos: 900, 105
+            font_name: "SFProSB"
+            rgba: 245,245,245,1
+            font_size: 100                                                
+
+        # Coolant Temp Needle
+        Needle:
+            id: coolant_temp_needle
+            source: 'small_dial_needle.png'
+            allow_stretch: True
+            size_hint: 0.1, 0.1
+            pos: 3011,1672
+            
+        # Fuel Tank Needle
+        Needle:
+            id: fuel_tank_needle
+            source: 'small_dial_needle.png'
+            allow_stretch: True
+            size_hint: 0.1, 0.1
+            pos: 1730,208
+
+        # Water Tank Needle
+        Needle:
+            id: water_tank_needle
+            source: 'small_dial_needle.png'
+            allow_stretch: True
+            size_hint: 0.1, 0.1
+            pos: 2366,208
+
+        # RPMs Needle
+        RPMsNeedle:
+            id: rpms_temp_needle
+            source: 'large_dial_needle.png'
+            allow_stretch: True
+            size_hint: 0.2, 0.2
+            pos: 2946,834
+
+        # Speed Needle
+        SpeedNeedle:
+            id: speed_needle
+            source: 'large_dial_needle.png'
+            allow_stretch: True
+            size_hint: 0.2, 0.2
+            pos: 1068,834
+
+        # SOG Needle
+        SOGNeedle:
+            id: sog_needle
+            source: 'large_dial_needle.png'
+            allow_stretch: True
+            size_hint: 0.2, 0.2
+            pos: 2006,834            
+
+
+
+    # RelativeLayout:
+    #     cols: 1
+    #     canvas.before:
+    #         Color:
+    #             rgba: 0,0,0,1
+    #         Rectangle:
+    #             size: self.size
+    #             pos: 0,0
+    #     RelativeLayout:
+    #         Image:
+    #             source: 'direction_and_depth_guage_color_wheel.png'
+    #         DirDial:
+    #             id: dir_dial
+    #             source: 'direction_and_depth_guage_dial.png'
+    #         Image:
+    #             source: 'direction_and_depth_guage_panels.png'                
+    #         Label:
+    #             bold: True
+    #             italic: True
+    #             font_size: 30
+    #             color: 0,0,0,1
+    #             id: dir_heading
+    #             text: "asd"
+    #             size_hint_y: 0.2
+    #             pos: 0,5
+    #         Label:
+    #             italic: True
+    #             font_size: 20
+    #             color: 0,0,0,1
+    #             text: "GPS Speed"
+    #             pos: 0,30
+    #         Label:
+    #             bold: True
+    #             italic: True
+    #             font_size: 45
+    #             color: 0,0,0,1
+    #             id: gps_speed
+    #             text: "0 kt"
+    #             pos: 0,-15
+    #         Label:
+    #             #bold: True
+    #             italic: True
+    #             font_size: 12
+    #             color: 0,0,0,1
+    #             text: "Water Temp"
+    #             size_hint_y: 0.2
+    #             pos: -91,220
+    #         Label:
+    #             id: water_temp
+    #             bold: True
+    #             italic: True
+    #             font_size: 28
+    #             color: 0,0,0,1
+    #             text: "Water Temp"
+    #             size_hint_y: 0.2
+    #             pos: -91,199                                                           
+
+    # RelativeLayout:
+    #     Image:
+    #         source: 'tilt_heel_sky.png'
+    #     YachtFront:
+    #         id: heel_yacht
+    #         source: 'yacht_front.png'
+    #     Image:
+    #         source: 'tilt_heel_water.png'
+    #     Image:
+    #         source: 'tilt_heel_surround.png'
+    #     Image:
+    #         source: 'tilt_heel_bottom_panel.png'  
+    #     Label:
+    #         italic: True
+    #         font_size: 20
+    #         color: 0,0,0,1
+    #         text: "Heel"
+    #         pos: 0,-65
+    #     Label:
+    #         bold: True
+    #         italic: True
+    #         font_size: 45
+    #         color: 0,0,0,1
+    #         id: heel_actual
+    #         text: "0"
+    #         pos: 0,-95                               
+    # RelativeLayout:
+    #     Image:
+    #         source: 'tilt_heel_sky.png'
+    #     YachtSide:
+    #         id: tilt_yacht
+    #         source: 'yacht_side.png'
+    #     Image:
+    #         source: 'tilt_heel_water.png'
+    #     Image:
+    #         source: 'tilt_heel_surround.png'
+    #     Image:
+    #         source: 'tilt_heel_bottom_panel.png'   
+    #     Label:
+    #         italic: True
+    #         font_size: 20
+    #         color: 0,0,0,1
+    #         text: "Tilt"
+    #         pos: 0,-65
+    #     Label:
+    #         bold: True
+    #         italic: True
+    #         font_size: 45
+    #         color: 0,0,0,1
+    #         id: tilt_actual
+    #         text: "0"
+    #         pos: 0,-95           
+
+    # RelativeLayout:
+    #     cols: 1
+    #     canvas.before:
+    #         Color:
+    #             rgba: 0,0,0,1
+    #         Rectangle:
+    #             size: self.size
+    #             pos: 0,0
+    #     RelativeLayout:
+    #         Image:
+    #             source: 'wind_background.png'
+    #         Label:
+    #             #bold: True
+    #             italic: True
+    #             font_size: 15
+    #             color: 0,0,0,1
+    #             text: "Wind Speed"
+    #             size_hint_y: 0.2
+    #             pos: 0,60 
+    #         Label:
+    #             bold: True
+    #             font_size: 35
+    #             color: 0,0,0,1
+    #             id: wind_speed
+    #             text: "0 kt"
+    #             size_hint_y: 0.2
+    #             pos: 0,35
+    #         Label:
+    #             #bold: True
+    #             italic: True
+    #             font_size: 15
+    #             color: 0,0,0,1
+    #             text: "Knots"
+    #             size_hint_y: 0.2
+    #             pos: 0,12                
                           
-        RelativeLayout:        
-            WindDirNeedle:
-                id: wind_needle
-                source: 'wind_needle.png'
-                pos: 0,-6
+    #     RelativeLayout:        
+    #         WindDirNeedle:
+    #             id: wind_needle
+    #             source: 'wind_needle.png'
+    #             pos: 0,-6
  
 
 
 '''
 
 Builder.load_string(kv)
-
-degree_sign = u'\N{DEGREE SIGN}'
 
 screenwidth = 0
 screenheight = 0
@@ -272,7 +472,7 @@ else:
     screenheight=1080
     screenwidth=1920
 
-Config.set('graphics', 'resizable', True)
+Config.set('graphics', 'resizable', False)
 
 class KivyWebSocket(websocket.WebSocketApp):
 
@@ -284,9 +484,16 @@ class KivyWebSocket(websocket.WebSocketApp):
 class WS(GridLayout):
     water_temp = ObjectProperty()
     water_speed = ObjectProperty()
+    water_depth = ObjectProperty()
     #land_speed = ObjectProperty()
     wind_speed = ObjectProperty()
     wind_direction = ObjectProperty()
+    engine_hours = ObjectProperty()
+    engine_battery = ObjectProperty()
+    house_battery = ObjectProperty()
+    water_tank_needle = ObjectProperty()
+    fuel_tank_needle = ObjectProperty()
+    coolant_temp_needle = ObjectProperty()
 
     pressed = False
 
@@ -316,9 +523,9 @@ class WebSocketTest(App):
     def build(self):
         Window.borderless = False
         #Window.size = 155, 520 # This is temp for viewing on a Mac
-        Window.size = 310, screenheight-40 # This is real setting for 1080p
+        Window.size = screenwidth, screenheight-40 # This is real setting for 1080p
         Window.top = 0
-        Window.left = screenwidth - 310
+        Window.left = 0
         self.layout = WS()
         return self.layout
 
