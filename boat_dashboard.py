@@ -155,7 +155,7 @@ kv = '''
     engine_hours: engine_hours
     engine_battery: engine_battery
     house_battery: house_battery
-    water_tank_needle: water_tank_needle
+    compass: compass
     fuel_tank_needle: fuel_tank_needle
     coolant_temp_needle: coolant_temp_needle
 
@@ -267,15 +267,28 @@ kv = '''
             source: 'small_dial_needle.png'
             allow_stretch: True
             size_hint: 0.1, 0.1
-            pos: 1730,208
+            pos: 2366,208 
 
-        # Water Tank Needle
-        Needle:
-            id: water_tank_needle
-            source: 'small_dial_needle.png'
+        # Compass
+        Image:
+            source: 'direction_and_depth_guage_color_wheel.png'
             allow_stretch: True
-            size_hint: 0.1, 0.1
-            pos: 2366,208
+            size_hint: 0.21,0.21
+            pos: 1522,89
+        Needle:
+            id: compass
+            source: 'direction_and_depth_guage_dial.png'
+            allow_stretch: True
+            size_hint: 0.21, 0.21
+            pos: 1522,89
+        Label:
+            id: compass_label
+            text: "321"
+            size_hint: 0.2,0.2
+            pos: 1540,98
+            font_name: "SFProSB"
+            color: "black"
+            font_size: 90             
 
         # RPMs Needle
         RPMsNeedle:
@@ -501,13 +514,13 @@ class WS(GridLayout):
         super(WS, self).__init__(**kwargs)
         Logger.info('Layout: initialized')
 
-class WebSocketTest(App):
+class SignalKInterface(App):
     ws = None
     url = "ws://172.30.3.149:3000/signalk/v1/stream?subscribe=all"
     layout = ObjectProperty(None)
 
     def __init__(self, **kwargs):
-        super(WebSocketTest, self).__init__(**kwargs)
+        super(SignalKInterface, self).__init__(**kwargs)
         socket_server="ws://172.30.3.149:3000/signalk/v1/stream?subscribe=all"
         ws = KivyWebSocket(socket_server,
                            on_message=self.on_ws_message,
@@ -641,4 +654,4 @@ class WebSocketTest(App):
 
 
 if __name__ == "__main__":
-    WebSocketTest().run()
+    SignalKInterface().run()
