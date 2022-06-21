@@ -67,7 +67,7 @@ kv = '''
     canvas.before:
         PushMatrix
         Rotate:
-            angle: root.angle
+            angle: 25
             axis: 0,0,1
             origin: root.center
     canvas.after:
@@ -101,7 +101,7 @@ kv = '''
         PushMatrix
         Rotate:
             #angle: root.angle
-            angle: 44
+            angle: 0
             axis: 0,0,1
             origin: root.center
     canvas.after:
@@ -113,7 +113,7 @@ kv = '''
         PushMatrix
         Rotate:
             #angle: root.angle
-            angle: 44
+            angle: 270
             axis: 0,0,1
             origin: root.center
     canvas.after:
@@ -125,7 +125,7 @@ kv = '''
         PushMatrix
         Rotate:
             #angle: root.angle
-            angle: 43
+            angle: 0
             axis: 0,0,1
             origin: root.center
     canvas.after:
@@ -167,93 +167,92 @@ kv = '''
             source: 'tilt_heel_sky_v2.png'
             allow_stretch: True
             size_hint: 0.1,0.1
-            pos: 450,1770
+            pos: 226,884
         YachtFront:
             id: heel_yacht
             source: 'yacht_front.png'
             allow_stretch: True
             size_hint: 0.18,0.18
-            pos: 300, 1590
+            pos: 150,793
         Label:
             id: tilt_value
-            text: "360"
+            text: "61"
             size_hint: 0.2,0.2
-            pos: 900, 1475
+            pos: 451, 730
             font_name: "SFProSB"
             rgba: 245,245,245,1
-            font_size: 100 
+            font_size: 50 
 
         # Yacht Heel Guage
         Image:
             source: 'tilt_heel_sky_v2.png'
             allow_stretch: True
             size_hint: 0.1,0.1
-            pos: 1090,1770            
+            pos: 546,884           
         YachtSide:
             id: tilt_yacht
             source: 'yacht_side.png'
             allow_stretch: True
             size_hint: 0.18,0.18 
-            pos: 940, 1590
+            pos: 472,793 
         Label:
             id: heel_value
             text: "360"
             size_hint: 0.2,0.2
-            pos: 260, 1475
+            pos: 133, 730
             font_name: "SFProSB"
             rgba: 245,245,245,1
-            font_size: 100
+            font_size: 50
 
         # Water Depth Guage
         Label:
             id: water_depth
-            text: "3.65 m"
+            text: "35.6"
             size_hint: 0.2,0.2
-            pos: 1547, 1570
+            pos: 770,790
             font_name: "SFProSB"
             rgba: 245,245,245,1
-            font_size: 100
+            font_size: 60
 
         # Water Temp
         Label:
             id: water_temp
             text: "21.5"
             size_hint: 0.2,0.2
-            pos: 2180, 1570
+            pos: 1090, 790
             font_name: "SFProSB"
             rgba: 245,245,245,1
-            font_size: 100
+            font_size: 60
 
         # Engine Hours
         Label:
             id: engine_hours
             text: "347"
             size_hint: 0.2,0.2
-            pos: 2820, 105
+            pos: 1410, 60
             font_name: "SFProSB"
             rgba: 245,245,245,1
-            font_size: 100 
+            font_size: 60 
 
         # Engine Battery
         Label:
             id: engine_battery
-            text: "12.8 v"
+            text: "12.8"
             size_hint: 0.2,0.2
-            #pos: 240, 520
-            pos_hint: {"x": 0.1, "y": 0.5}
+            pos: 130, 60
             font_name: "SFProSB"
             rgba: 245,245,245,1
-            font_size: 70 
+            font_size: 60 
 
         # House Battery
         Label:
             id: house_battery
-            text: "13.2 v"
+            text: "13.2"
             size_hint: 0.2,0.2
-            pos: 900, 105
+            pos: 450, 60
             font_name: "SFProSB"
             rgba: 245,245,245,1
-            font_size: 100                                                
+            font_size: 60                                                
 
         # Coolant Temp Needle
         Needle:
@@ -261,7 +260,7 @@ kv = '''
             source: 'small_dial_needle.png'
             allow_stretch: True
             size_hint: 0.1, 0.1
-            pos: 3011,1672
+            pos: 1505,836
             
         # Fuel Tank Needle
         Needle:
@@ -269,28 +268,28 @@ kv = '''
             source: 'small_dial_needle.png'
             allow_stretch: True
             size_hint: 0.1, 0.1
-            pos: 2366,208 
+            pos: 1183, 104
 
         # Compass
         Image:
             source: 'direction_and_depth_guage_color_wheel.png'
             allow_stretch: True
             size_hint: 0.21,0.21
-            pos: 1522,89
+            pos: 761,44
         Needle:
             id: compass
             source: 'direction_and_depth_guage_dial.png'
             allow_stretch: True
             size_hint: 0.21, 0.21
-            pos: 1522,89
+            pos: 761,44
         Label:
             id: compass_label
-            text: "321"
+            text: "21"
             size_hint: 0.2,0.2
-            pos: 1540,98
+            pos: 770,50
             font_name: "SFProSB"
             color: "black"
-            font_size: 90             
+            font_size: 60             
 
         # RPMs Needle
         RPMsNeedle:
@@ -298,7 +297,7 @@ kv = '''
             source: 'large_dial_needle.png'
             allow_stretch: True
             size_hint: 0.2, 0.2
-            pos: 2946,834
+            pos: 1472,415
 
         # Speed Needle
         SpeedNeedle:
@@ -306,7 +305,7 @@ kv = '''
             source: 'large_dial_needle.png'
             allow_stretch: True
             size_hint: 0.2, 0.2
-            pos: 1068,834
+            pos: 1003,415
 
         # SOG Needle
         SOGNeedle:
@@ -314,7 +313,7 @@ kv = '''
             source: 'large_dial_needle.png'
             allow_stretch: True
             size_hint: 0.2, 0.2
-            pos: 2006,834            
+            pos: 533,415            
 
 
 '''
