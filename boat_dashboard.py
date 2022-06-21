@@ -241,7 +241,7 @@ kv = '''
             pos: 260, 105
             font_name: "SFProSB"
             rgba: 245,245,245,1
-            font_size: 100 
+            font_size: 50 
 
         # House Battery
         Label:
