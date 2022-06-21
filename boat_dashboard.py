@@ -239,7 +239,8 @@ kv = '''
             id: engine_battery
             text: "12.8 v"
             size_hint: 0.2,0.2
-            pos: 240, 520
+            #pos: 240, 520
+            pos_hint: {"x": 0.1, "y": 0.5}
             font_name: "SFProSB"
             rgba: 245,245,245,1
             font_size: 70 
