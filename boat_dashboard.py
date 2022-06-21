@@ -7,6 +7,7 @@ from kivy.logger import Logger
 from kivy.core.text import LabelBase
 from kivy.config import Config
 from kivy.core.window import Window
+from kivy.graphics import *
 
 
 import websocket
@@ -238,10 +239,10 @@ kv = '''
             id: engine_battery
             text: "12.8 v"
             size_hint: 0.2,0.2
-            pos: 260, 105
+            pos: 240, 520
             font_name: "SFProSB"
             rgba: 245,245,245,1
-            font_size: 50 
+            font_size: 70 
 
         # House Battery
         Label:
@@ -313,161 +314,6 @@ kv = '''
             allow_stretch: True
             size_hint: 0.2, 0.2
             pos: 2006,834            
-
-
-
-    # RelativeLayout:
-    #     cols: 1
-    #     canvas.before:
-    #         Color:
-    #             rgba: 0,0,0,1
-    #         Rectangle:
-    #             size: self.size
-    #             pos: 0,0
-    #     RelativeLayout:
-    #         Image:
-    #             source: 'direction_and_depth_guage_color_wheel.png'
-    #         DirDial:
-    #             id: dir_dial
-    #             source: 'direction_and_depth_guage_dial.png'
-    #         Image:
-    #             source: 'direction_and_depth_guage_panels.png'                
-    #         Label:
-    #             bold: True
-    #             italic: True
-    #             font_size: 30
-    #             color: 0,0,0,1
-    #             id: dir_heading
-    #             text: "asd"
-    #             size_hint_y: 0.2
-    #             pos: 0,5
-    #         Label:
-    #             italic: True
-    #             font_size: 20
-    #             color: 0,0,0,1
-    #             text: "GPS Speed"
-    #             pos: 0,30
-    #         Label:
-    #             bold: True
-    #             italic: True
-    #             font_size: 45
-    #             color: 0,0,0,1
-    #             id: gps_speed
-    #             text: "0 kt"
-    #             pos: 0,-15
-    #         Label:
-    #             #bold: True
-    #             italic: True
-    #             font_size: 12
-    #             color: 0,0,0,1
-    #             text: "Water Temp"
-    #             size_hint_y: 0.2
-    #             pos: -91,220
-    #         Label:
-    #             id: water_temp
-    #             bold: True
-    #             italic: True
-    #             font_size: 28
-    #             color: 0,0,0,1
-    #             text: "Water Temp"
-    #             size_hint_y: 0.2
-    #             pos: -91,199                                                           
-
-    # RelativeLayout:
-    #     Image:
-    #         source: 'tilt_heel_sky.png'
-    #     YachtFront:
-    #         id: heel_yacht
-    #         source: 'yacht_front.png'
-    #     Image:
-    #         source: 'tilt_heel_water.png'
-    #     Image:
-    #         source: 'tilt_heel_surround.png'
-    #     Image:
-    #         source: 'tilt_heel_bottom_panel.png'  
-    #     Label:
-    #         italic: True
-    #         font_size: 20
-    #         color: 0,0,0,1
-    #         text: "Heel"
-    #         pos: 0,-65
-    #     Label:
-    #         bold: True
-    #         italic: True
-    #         font_size: 45
-    #         color: 0,0,0,1
-    #         id: heel_actual
-    #         text: "0"
-    #         pos: 0,-95                               
-    # RelativeLayout:
-    #     Image:
-    #         source: 'tilt_heel_sky.png'
-    #     YachtSide:
-    #         id: tilt_yacht
-    #         source: 'yacht_side.png'
-    #     Image:
-    #         source: 'tilt_heel_water.png'
-    #     Image:
-    #         source: 'tilt_heel_surround.png'
-    #     Image:
-    #         source: 'tilt_heel_bottom_panel.png'   
-    #     Label:
-    #         italic: True
-    #         font_size: 20
-    #         color: 0,0,0,1
-    #         text: "Tilt"
-    #         pos: 0,-65
-    #     Label:
-    #         bold: True
-    #         italic: True
-    #         font_size: 45
-    #         color: 0,0,0,1
-    #         id: tilt_actual
-    #         text: "0"
-    #         pos: 0,-95           
-
-    # RelativeLayout:
-    #     cols: 1
-    #     canvas.before:
-    #         Color:
-    #             rgba: 0,0,0,1
-    #         Rectangle:
-    #             size: self.size
-    #             pos: 0,0
-    #     RelativeLayout:
-    #         Image:
-    #             source: 'wind_background.png'
-    #         Label:
-    #             #bold: True
-    #             italic: True
-    #             font_size: 15
-    #             color: 0,0,0,1
-    #             text: "Wind Speed"
-    #             size_hint_y: 0.2
-    #             pos: 0,60 
-    #         Label:
-    #             bold: True
-    #             font_size: 35
-    #             color: 0,0,0,1
-    #             id: wind_speed
-    #             text: "0 kt"
-    #             size_hint_y: 0.2
-    #             pos: 0,35
-    #         Label:
-    #             #bold: True
-    #             italic: True
-    #             font_size: 15
-    #             color: 0,0,0,1
-    #             text: "Knots"
-    #             size_hint_y: 0.2
-    #             pos: 0,12                
-                          
-    #     RelativeLayout:        
-    #         WindDirNeedle:
-    #             id: wind_needle
-    #             source: 'wind_needle.png'
-    #             pos: 0,-6
- 
 
 
 '''
