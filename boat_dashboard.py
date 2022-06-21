@@ -129,7 +129,31 @@ kv = '''
             axis: 0,0,1
             origin: root.center
     canvas.after:
-        PopMatrix                         
+        PopMatrix
+
+<TrueWindNeedle@Image>:
+    angle: 0
+    canvas.before:
+        PushMatrix
+        Rotate:
+            #angle: root.angle
+            angle: 0
+            axis: 0,0,1
+            origin: root.center
+    canvas.after:
+        PopMatrix  
+
+<ApparentWindNeedle@Image>:
+    angle: 0
+    canvas.before:
+        PushMatrix
+        Rotate:
+            #angle: root.angle
+            angle: -65
+            axis: 0,0,1
+            origin: root.center
+    canvas.after:
+        PopMatrix                                         
 
 
 
@@ -153,22 +177,20 @@ kv = '''
     # wind_needle: wind_needle
     # wind_speed: wind_speed
     sog_needle: sog_needle
+    sog_value: sog_value
     speed_needle: speed_needle
+    speed_value: speed_value
     rpms_needle: rpms_needle
+    rpms_value: rpms_value
 
-    engine_battery: engine_battery
-    house_battery: house_battery
+    engine_battery_volts: engine_battery_volts
+    engine_battery_percent: engine_battery_percent
+    house_battery_volts: house_battery_volts
+    house_battery_percent: house_battery_percent
     dir_dial: dir_dial
     dir_heading: dir_heading
     fuel_tank_needle: fuel_tank_needle
     engine_hours: engine_hours
-
-
-    
-
-
-
-
 
     FloatLayout:
 
@@ -240,7 +262,66 @@ kv = '''
             source: 'small_dial_needle.png'
             allow_stretch: True
             size_hint: 0.1, 0.1
-            pos: 1505,836
+            pos: 1507,836
+
+        # Apparent Wind Value
+        Label:
+            id: apparent_wind_value
+            text: "11.6 kts"
+            size_hint: 0.07,0.05
+            pos: 192,560
+            font_name: "SFProSB"
+            rgba: 245,245,245,1
+            font_size: 35
+            # canvas.before:
+            #     Color:
+            #         rgba: 0.176470588235294, 0.188235294117647, 0.203921568627451, 1
+            #     Rectangle:
+            #         pos: self.pos
+            #         size: self.size
+
+        #Apparent Wind Needle
+        ApparentWindNeedle:
+            id: apparent_wind_arrow
+            source: 'apparent_wind_arrow.png'
+            allow_stretch: True
+            size_hint: 0.23, 0.23
+            pos: 37,401
+
+        # True Wind Value
+        Label:
+            id: true_wind_value
+            text: "15.6 kts"
+            size_hint: 0.07,0.05
+            pos: 192,430
+            font_name: "SFProSB"
+            rgba: 245,245,245,1
+            font_size: 35
+            # canvas.before:
+            #     Color:
+            #         rgba: 0.176470588235294, 0.188235294117647, 0.203921568627451, 1
+            #     Rectangle:
+            #         pos: self.pos
+            #         size: self.size 
+
+        # True Wind Needle
+        TrueWindNeedle:
+            id: true_wind_arrow
+            source: 'true_wind_arrow.png'
+            allow_stretch: True
+            size_hint: 0.24, 0.24
+            pos: 26,396
+                    
+
+        # SOG Value
+        Label:
+            id: sog_value
+            text: "8.0"
+            size_hint: 0.2,0.2
+            pos: 533,335
+            font_name: "SFProSB"
+            rgba: 245,245,245,1
+            font_size: 60
 
         # SOG Needle
         SOGNeedle:
@@ -250,6 +331,16 @@ kv = '''
             size_hint: 0.2, 0.2
             pos: 533,415
 
+        # Speed Value
+        Label:
+            id: speed_value
+            text: "6.8"
+            size_hint: 0.2,0.2
+            pos: 1003,335
+            font_name: "SFProSB"
+            rgba: 245,245,245,1
+            font_size: 60
+
         # Speed Needle
         SpeedNeedle:
             id: speed_needle
@@ -257,6 +348,16 @@ kv = '''
             allow_stretch: True
             size_hint: 0.2, 0.2
             pos: 1003,415
+
+        # RPMs Value
+        Label:
+            id: rpms_value
+            text: "3250"
+            size_hint: 0.2,0.2
+            pos: 1472,335
+            font_name: "SFProSB"
+            rgba: 245,245,245,1
+            font_size: 60
 
         # RPMs Needle
         RPMsNeedle:
@@ -268,23 +369,39 @@ kv = '''
 
         # Engine Battery
         Label:
-            id: engine_battery
-            text: "12.8"
+            id: engine_battery_percent
+            text: "80%"
             size_hint: 0.2,0.2
-            pos: 130, 60
+            pos: 130, 90
             font_name: "SFProSB"
             rgba: 245,245,245,1
             font_size: 60 
+        Label:
+            id: engine_battery_volts
+            text: "12.8"
+            size_hint: 0.2,0.2
+            pos: 130, 35
+            font_name: "SFProSB"
+            rgba: 245,245,245,1
+            font_size: 30 
 
         # House Battery
         Label:
-            id: house_battery
-            text: "13.2"
+            id: house_battery_percent
+            text: "97%"
             size_hint: 0.2,0.2
-            pos: 450, 60
+            pos: 450, 90
             font_name: "SFProSB"
             rgba: 245,245,245,1
-            font_size: 60                                                
+            font_size: 60 
+        Label:
+            id: house_battery_volts
+            text: "13.2"
+            size_hint: 0.2,0.2
+            pos: 450, 35
+            font_name: "SFProSB"
+            rgba: 245,245,245,1
+            font_size: 30                                                
             
         # Compass
         Image:
@@ -475,13 +592,6 @@ class SignalKInterface(App):
                     ## Code to move the direction dial - change this later
                     self.layout.dir_dial.angle = int(wind_angle_degrees) * -1
                     self.layout.dir_heading.text = wind_angle_translated_clean + " " + degree_sign + " M"
-
-
-
-
-
-
-
 
 
     def on_ws_error(self, ws, error):
