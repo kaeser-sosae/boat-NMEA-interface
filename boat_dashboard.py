@@ -67,7 +67,7 @@ kv = '''
     canvas.before:
         PushMatrix
         Rotate:
-            angle: 25
+            angle: root.angle
             axis: 0,0,1
             origin: root.center
     canvas.after:
@@ -93,15 +93,47 @@ kv = '''
             axis: 0,0,1
             origin: root.center
     canvas.after:
-        PopMatrix 
+        PopMatrix
+
+<CompassDial@Image>:
+    angle: 0
+    canvas.before:
+        PushMatrix
+        Rotate:
+            angle: root.angle
+            axis: 0,0,1
+            origin: root.center
+    canvas.after:
+        PopMatrix        
+
+<FuelTankNeedle@Image>:
+    angle: 0
+    canvas.before:
+        PushMatrix
+        Rotate:
+            angle: root.angle
+            axis: 0,0,1
+            origin: root.center
+    canvas.after:
+        PopMatrix
+
+<CoolantTempNeedle@Image>:
+    angle: 0
+    canvas.before:
+        PushMatrix
+        Rotate:
+            angle: root.angle
+            axis: 0,0,1
+            origin: root.center
+    canvas.after:
+        PopMatrix                 
 
 <SpeedNeedle@Image>:
     angle: 0
     canvas.before:
         PushMatrix
         Rotate:
-            #angle: root.angle
-            angle: 290
+            angle: root.angle
             axis: 0,0,1
             origin: root.center
     canvas.after:
@@ -112,8 +144,7 @@ kv = '''
     canvas.before:
         PushMatrix
         Rotate:
-            #angle: root.angle
-            angle: 270
+            angle: root.angle
             axis: 0,0,1
             origin: root.center
     canvas.after:
@@ -124,8 +155,7 @@ kv = '''
     canvas.before:
         PushMatrix
         Rotate:
-            #angle: root.angle
-            angle: 180
+            angle: root.angle
             axis: 0,0,1
             origin: root.center
     canvas.after:
@@ -136,8 +166,7 @@ kv = '''
     canvas.before:
         PushMatrix
         Rotate:
-            #angle: root.angle
-            angle: 0
+            angle: root.angle
             axis: 0,0,1
             origin: root.center
     canvas.after:
@@ -148,8 +177,7 @@ kv = '''
     canvas.before:
         PushMatrix
         Rotate:
-            #angle: root.angle
-            angle: -65
+            angle: root.angle
             axis: 0,0,1
             origin: root.center
     canvas.after:
@@ -174,8 +202,10 @@ kv = '''
     water_temp: water_temp
     coolant_temp_needle: coolant_temp_needle
 
-    # wind_needle: wind_needle
-    # wind_speed: wind_speed
+    apparent_wind_needle: apparent_wind_needle
+    apparent_wind_speed_value: apparent_wind_speed_value
+    true_wind_needle: true_wind_needle
+    true_wind_speed_value: true_wind_speed_value
     sog_needle: sog_needle
     sog_value: sog_value
     speed_needle: speed_needle
@@ -257,7 +287,7 @@ kv = '''
             font_size: 60
 
         # Coolant Temp Needle
-        Needle:
+        CoolantTempNeedle:
             id: coolant_temp_needle
             source: 'small_dial_needle.png'
             allow_stretch: True
@@ -266,8 +296,8 @@ kv = '''
 
         # Apparent Wind Value
         Label:
-            id: apparent_wind_value
-            text: "11.6 kts"
+            id: apparent_wind_speed_value
+            text: "-"
             size_hint: 0.07,0.05
             pos: 192,560
             font_name: "SFProSB"
@@ -282,7 +312,7 @@ kv = '''
 
         #Apparent Wind Needle
         ApparentWindNeedle:
-            id: apparent_wind_arrow
+            id: apparent_wind_needle
             source: 'apparent_wind_arrow.png'
             allow_stretch: True
             size_hint: 0.23, 0.23
@@ -290,8 +320,8 @@ kv = '''
 
         # True Wind Value
         Label:
-            id: true_wind_value
-            text: "15.6 kts"
+            id: true_wind_speed_value
+            text: "-"
             size_hint: 0.07,0.05
             pos: 192,430
             font_name: "SFProSB"
@@ -306,7 +336,7 @@ kv = '''
 
         # True Wind Needle
         TrueWindNeedle:
-            id: true_wind_arrow
+            id: true_wind_needle
             source: 'true_wind_arrow.png'
             allow_stretch: True
             size_hint: 0.24, 0.24
@@ -329,7 +359,7 @@ kv = '''
             source: 'large_dial_needle.png'
             allow_stretch: True
             size_hint: 0.2, 0.2
-            pos: 533,415
+            pos: 534,415
 
         # Speed Value
         Label:
@@ -378,7 +408,7 @@ kv = '''
             font_size: 60 
         Label:
             id: engine_battery_volts
-            text: "12.8"
+            text: "-"
             size_hint: 0.2,0.2
             pos: 130, 35
             font_name: "SFProSB"
@@ -396,7 +426,7 @@ kv = '''
             font_size: 60 
         Label:
             id: house_battery_volts
-            text: "13.2"
+            text: "-"
             size_hint: 0.2,0.2
             pos: 450, 35
             font_name: "SFProSB"
@@ -409,7 +439,7 @@ kv = '''
             allow_stretch: True
             size_hint: 0.21,0.21
             pos: 761,44
-        Needle:
+        CompassDial:
             id: dir_dial
             source: 'direction_and_depth_guage_dial.png'
             allow_stretch: True
@@ -417,7 +447,7 @@ kv = '''
             pos: 761,44
         Label:
             id: dir_heading
-            text: "21"
+            text: "-"
             size_hint: 0.2,0.2
             pos: 770,50
             font_name: "SFProSB"
@@ -425,7 +455,7 @@ kv = '''
             font_size: 60 
 
         # Fuel Tank Needle
-        Needle:
+        FuelTankNeedle:
             id: fuel_tank_needle
             source: 'small_dial_needle.png'
             allow_stretch: True
@@ -435,7 +465,7 @@ kv = '''
         # Engine Hours
         Label:
             id: engine_hours
-            text: "347"
+            text: "-"
             size_hint: 0.2,0.2
             pos: 1410, 60
             font_name: "SFProSB"
@@ -474,12 +504,24 @@ class WS(GridLayout):
     #land_speed = ObjectProperty()
     wind_speed = ObjectProperty()
     wind_direction = ObjectProperty()
+    apparent_wind_needle = ObjectProperty()
+    apparent_wind_speed_value = ObjectProperty()
+    true_wind_needle = ObjectProperty()
+    true_wind_speed_value = ObjectProperty()
     engine_hours = ObjectProperty()
-    engine_battery = ObjectProperty()
-    house_battery = ObjectProperty()
+    engine_battery_percent = ObjectProperty()
+    engine_battery_volts = ObjectProperty()
+    house_battery_percent = ObjectProperty()
+    house_battery_volts = ObjectProperty()
     water_tank_needle = ObjectProperty()
     fuel_tank_needle = ObjectProperty()
     coolant_temp_needle = ObjectProperty()
+    tilt_yacht = ObjectProperty()
+    tilt_value = ObjectProperty()
+    heel_yacht = ObjectProperty()
+    heel_value = ObjectProperty()
+    rpms_value = ObjectProperty()
+    rpms_needle = ObjectProperty()
 
     pressed = False
 
@@ -494,7 +536,8 @@ class SignalKInterface(App):
 
     def __init__(self, **kwargs):
         super(SignalKInterface, self).__init__(**kwargs)
-        socket_server="ws://172.30.3.149:3000/signalk/v1/stream?subscribe=all"
+        #socket_server="ws://172.30.3.149:3000/signalk/v1/stream?subscribe=all"
+        socket_server="ws://serenity-tweed.ddns.net:3000/signalk/v1/stream?subscribe=all"
         ws = KivyWebSocket(socket_server,
                            on_message=self.on_ws_message,
                            on_error=self.on_ws_error,
@@ -520,23 +563,32 @@ class SignalKInterface(App):
         json_message = json.loads(message)
 
         for update in json_message["updates"]:
-            print(Window.size)
+            #print(Window.size)
             for value in update["values"]:
-                if (value["path"] == "environment.water.temperature"):
-                    print("Got water temp: " + str(value["value"]))
-                    self.layout.water_temp.text = str(float("{:.1f}".format(float(value["value"]) - 273.15))) #+ " " + degree_sign + "C"
-                if (value["path"] == "navigation.speedThroughWater"):
-                    print("Got water speed: " + str(value["value"]))
-                    self.layout.water_speed.text = str(value["value"]) + " kt"
-                    self.layout.gps_speed.text = str(float("{:.1f}".format(float(value["value"])))) + " kt"
-                if (value["path"] == "navigation.speedOverGround"):
-                    print("Got land speed: " + str(value["value"]))
-                    self.layout.land_speed.text = str(value["value"]) + " kt"
-                if (value["path"] == "navigation.attitude"):
-                    #print("Got yaw: " + str(value["value"]["yaw"]))
-                    
-                    print("Got roll: " + str(value["value"]["roll"]))
 
+                # Water Temperature
+                if (value["path"] == "environment.water.temperature"):
+                    #print("Got water temp: " + str(value["value"]))
+                    self.layout.water_temp.text = str(float("{:.1f}".format(float(value["value"]) - 273.15))) #+ " " + degree_sign + "C"
+
+                # Water Depth
+                if (value["path"] == "environment.depth.belowTransducer"):
+                    #print("Got water depth: " + str(value["value"]))
+                    self.layout.water_depth.text = str(float("{:.2f}".format(float(value["value"])))) #+ " " + degree_sign + "C"
+
+                # Coolant Temperature
+                if (value["path"] == "propulsion.port.temperature"):
+                    #print("Got coolant temp: " + str(value["value"]))
+                    self.layout.coolant_temp_needle.angle = 0 - float("{:.1f}".format(float(value["value"]) - 273.15))*1.5
+
+                # Petrol Tank Level
+                if (value["path"] == "tanks.fuel.0.currentLevel"):
+                    #print("Got petrol tank: " + str(value["value"]))
+                    self.layout.fuel_tank_needle.angle = 0 - float("{:.1f}".format(float(value["value"])))/0.0055555555555555555
+
+                # Heel and Tilt
+                if (value["path"] == "navigation.attitude"):
+                    #print("Got roll: " + str(value["value"]["roll"]))
                     heel_angle_raw = value["value"]["roll"]
                     heel_angle_degrees = heel_angle_raw * 57.29
                     heel_angle_translated = ""
@@ -547,51 +599,113 @@ class SignalKInterface(App):
                     if heel_angle_degrees < 0:
                         heel_angle_translated = str(int(float("{:.0f}".format(heel_angle_degrees)) * -1)) + degree_sign + " P"
                         heel_angle_translated_clean = str(int(float("{:.0f}".format(heel_angle_degrees)) * -1))
-                    print(" - Converted to degrees: " + str(heel_angle_degrees))
-                    print(" - Converted to human: " + heel_angle_translated)
+                    #print(" - Converted to degrees: " + str(heel_angle_degrees))
+                    #print(" - Converted to human: " + heel_angle_translated)
                     self.layout.heel_yacht.angle = int(heel_angle_degrees) * -1
-                    self.layout.heel_actual.text = heel_angle_translated
+                    self.layout.heel_value.text = heel_angle_translated
 
-                    print("Got pitch: " + str(value["value"]["pitch"]))
-
+                    #print("Got pitch: " + str(value["value"]["pitch"]))
                     tilt_angle_raw = value["value"]["pitch"]
                     tilt_angle_degrees = tilt_angle_raw * 57.29
                     tilt_angle_translated = "0"
                     tilt_angle_translated_clean = ""
                     if tilt_angle_degrees > 0:
-                        tilt_angle_translated = str(int(float("{:.0f}".format(tilt_angle_degrees)))) + degree_sign + " S"
+                        tilt_angle_translated = str(int(float("{:.0f}".format(tilt_angle_degrees)))) + degree_sign + " F"
                         tilt_angle_translated_clean = str(int(float("{:.0f}".format(tilt_angle_degrees))))
                     if tilt_angle_degrees < 0:
                         tilt_angle_translated = str(int(float("{:.0f}".format(tilt_angle_degrees)) * -1)) + degree_sign + " B"
                         tilt_angle_translated_clean = str(int(float("{:.0f}".format(tilt_angle_degrees)) * -1))
-                    print(" - Converted to degrees: " + str(tilt_angle_degrees))
-                    print(" - Converted to human: " + tilt_angle_translated)
+                    #print(" - Converted to degrees: " + str(tilt_angle_degrees))
+                    #print(" - Converted to human: " + tilt_angle_translated)
                     self.layout.tilt_yacht.angle = int(tilt_angle_degrees)
-                    self.layout.tilt_actual.text = tilt_angle_translated
+                    self.layout.tilt_value.text = tilt_angle_translated
 
+                # Engine Battery
+                # Use Victron NMEA once we have it
+                #if (value["path"] == "electrical.batteries.0.voltage"):
+                #    print("Got engine battery: " + str(value["value"]))
+                #    self.layout.engine_battery_volts.text = str(float("{:.2f}".format(float(value["value"]))))
+                # House Battery
+                # Use Victron NMEA once we have it
+                #if (value["path"] == "electrical.batteries.0.voltage"):
+                #    print("Got engine battery: " + str(value["value"]))
+                #    self.layout.engine_battery_volts.text = str(float("{:.2f}".format(float(value["value"]))))
+
+                # Speed through water
+                if (value["path"] == "navigation.speedThroughWater"):
+                    #print("Got water speed: " + str(value["value"]))
+                    speed_in_knots = float("{:.2f}".format(float(value["value"]))) * 1.94384
+                    self.layout.speed_value.text = str(float("{:.2f}".format(float(speed_in_knots))))
+                    if speed_in_knots == 0:
+                        self.layout.speed_needle.angle = 43
+                    else:
+                        self.layout.speed_needle.angle = 43-(266/(16/speed_in_knots))
+
+                # Speed over ground
+                if (value["path"] == "navigation.speedOverGround"):
+                    sog = value["value"]
+                    print("Got speed over ground: " + str(sog) + " m/s")
+
+                    sog_in_knots = float("{:.2f}".format(float(sog))) * 1.94384
+                    self.layout.sog_value.text = str(float("{:.2f}".format(float(sog_in_knots))))
+                    if sog_in_knots == 0:
+                        self.layout.sog_needle.angle = 43
+                    else:                    
+                        self.layout.sog_needle.angle = 43-(266/(16/sog_in_knots))
+
+                # Engine RPMs
+                # propulsion.port.revolutions
+                if (value["path"] == "propulsion.port.revolutions"):
+                    #print("Got RPMs: " + str(float(value["value"])*60))
+                    rpms = float(value["value"])*60
+                    self.layout.rpms_value.text = str(float("{:.2f}".format(rpms)))
+                    if rpms == 0:
+                        #print('RPMs are 0, setting needle to 0')
+                        rpms_needle_angle = 43
+                    else:
+                        rpms_needle_angle = 43-(266/(4000/rpms))
+                    self.layout.rpms_needle.angle = rpms_needle_angle
+
+
+                # Engine hours
+                # propulsion.port.temperature
+                if (value["path"] == "propulsion.port.temperature"):
+                    #print("Got engine hours: " + str(value["value"]))
+                    self.layout.engine_hours.txt = str(float("{:.1f}".format(float(value["value"]))))           
+
+                
+                # Apparent Wind Speed
                 if (value["path"] == "environment.wind.speedApparent"):
-                    print("Got apparent wind speed: " + str(value["value"]))
-                    self.layout.wind_speed.text = str(float("{:.1f}".format(float(value["value"])))) + ""
+                    #print("Got apparent wind speed: " + str(value["value"]) + " m/s")
+                    self.layout.apparent_wind_speed_value.text = str(float("{:.1f}".format(float(value["value"])*1.94384))) + " kts"
+                
                 if (value["path"] == "environment.wind.angleApparent"):
-                    print("Got apparent wind angle: " + str(value["value"]))
+                    #print("Got apparent wind angle: " + str(value["value"]) + " rads")
                     wind_angle_raw = value["value"]
-                    wind_angle_degrees = wind_angle_raw * 57.29
+                    wind_angle_degrees = wind_angle_raw * 57.2958
+                    #print("Got apparent wind angle: " + str(wind_angle_degrees) + " degrees")
                     wind_angle_translated = ""
                     wind_angle_translated_clean = ""
+                    wind_angle_adjusted_for_needle = 0.0000001
                     if wind_angle_degrees > 0:
                         wind_angle_translated = str(int(float("{:.0f}".format(wind_angle_degrees)))) + " S"
                         wind_angle_translated_clean = str(int(float("{:.0f}".format(wind_angle_degrees))))
+                        wind_angle_adjusted_for_needle = 0 - 90 - wind_angle_degrees
                     if wind_angle_degrees < 0:
-                        wind_angle_translated = str(int(float("{:.0f}".format(wind_angle_degrees)) * -1)) + " P"
+                        wind_angle_translated = str(int(float("{:.0f}".format(wind_angle_degrees)))) + " P"
                         wind_angle_translated_clean = str(int(float("{:.0f}".format(wind_angle_degrees)) * -1))
-                    print(" - Converted to degrees: " + str(wind_angle_degrees))
-                    print(" - Converted to human: " + wind_angle_translated)
-                    #self.layout.wind_direction.text = wind_angle_translated
-                    self.layout.wind_needle.angle = int(wind_angle_degrees) * -1
+                        wind_angle_adjusted_for_needle = 0 - 90 + wind_angle_degrees
+                    self.layout.apparent_wind_needle.angle = float(wind_angle_adjusted_for_needle)
+                    #print("The apparent wind arrow angle should be " + str(wind_angle_adjusted_for_needle))
+                    #print(" - it is: " + str(self.layout.apparent_wind_needle.angle))
 
-                    ## Code to move the direction dial - change this later
-                    self.layout.dir_dial.angle = int(wind_angle_degrees) * -1
-                    self.layout.dir_heading.text = wind_angle_translated_clean + " " + degree_sign + " M"
+                if (value["path"] == "navigation.courseOverGroundTrue"):
+                    cog = value["value"]
+                    print("Got course over ground: " + str(cog) + " rads")
+                    course_angle_degrees = float(float(cog) * 57.2958)
+                    print("Got course over ground: " + str(course_angle_degrees) + " degrees")
+                    self.layout.dir_dial.angle = course_angle_degrees
+                    self.layout.dir_heading.text = str(int(course_angle_degrees)) + "" + degree_sign + ""
 
 
     def on_ws_error(self, ws, error):
