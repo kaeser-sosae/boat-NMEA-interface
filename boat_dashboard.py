@@ -508,12 +508,13 @@ class WS(GridLayout):
 class SignalKInterface(App):
     ws = None
     #url = "ws://172.30.3.149:3000/signalk/v1/stream?subscribe=all"
-    url = "ws://serenity-tweed.ddns.net:3000/signalk/v1/stream?subscribe=all"
+    #url2 = "ws://serenity-tweed.ddns.net:3000/signalk/v1/stream?subscribe=all"
     layout = ObjectProperty(None)
 
     def __init__(self, **kwargs):
         super(SignalKInterface, self).__init__(**kwargs)
-        socket_server=url
+        socket_server="ws://serenity-tweed.ddns.net:3000/signalk/v1/stream?subscribe=all"
+        #socket_server="ws://172.30.3.149:3000/signalk/v1/stream?subscribe=all"
         ws = KivyWebSocket(socket_server,
                            on_message=self.on_ws_message,
                            on_error=self.on_ws_error,
