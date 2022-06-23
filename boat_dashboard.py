@@ -700,19 +700,14 @@ class SignalKInterface(App):
 
     def on_ws_open(self, ws):
         def run(*args):
-            #for i in range(1, 13):
             time.sleep(1)
-            #    ws.send('Hello %d' % i)
-            #time.sleep(10)
-            #ws.close()
         _thread.start_new_thread(run, ())
 
     def on_ws_close(self, ws):
-        self.layout.water_temp.text = "N/A"
-        self.layout.water_speed.text = "N/A"
-        self.layout.land_speed.text = "N/A"
+        print("Websockets connection closed, waiting 10 seconds...")
         time.sleep(10)
         ws_connection()
+        print("Reconnecting websockets...")
         #self.layout.the_btn.text = '### closed ###'
 
 
