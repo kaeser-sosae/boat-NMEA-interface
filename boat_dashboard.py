@@ -8,22 +8,13 @@ from kivy.core.text import LabelBase
 from kivy.config import Config
 from kivy.core.window import Window
 from kivy.graphics import *
-
-
 import websocket
-
-# standard libraries (python 2.7)
 import _thread
 import time
-
 import json
-
-
-
 import os
 import ctypes
 
-LabelBase.register(name='CFLCD', fn_regular='CFLCD-Regular.ttf')
 LabelBase.register(name='SFProSB', fn_regular='SF-Pro-Display-Semibold.otf')
 
 degree_sign = u'\N{DEGREE SIGN}'
@@ -201,7 +192,6 @@ kv = '''
     water_depth: water_depth
     water_temp: water_temp
     coolant_temp_needle: coolant_temp_needle
-
     apparent_wind_needle: apparent_wind_needle
     apparent_wind_speed_value: apparent_wind_speed_value
     true_wind_needle: true_wind_needle
@@ -212,7 +202,6 @@ kv = '''
     speed_value: speed_value
     rpms_needle: rpms_needle
     rpms_value: rpms_value
-
     engine_battery_volts: engine_battery_volts
     engine_battery_percent: engine_battery_percent
     house_battery_volts: house_battery_volts
@@ -303,12 +292,6 @@ kv = '''
             font_name: "SFProSB"
             rgba: 245,245,245,1
             font_size: 35
-            # canvas.before:
-            #     Color:
-            #         rgba: 0.176470588235294, 0.188235294117647, 0.203921568627451, 1
-            #     Rectangle:
-            #         pos: self.pos
-            #         size: self.size
 
         #Apparent Wind Needle
         ApparentWindNeedle:
@@ -327,12 +310,6 @@ kv = '''
             font_name: "SFProSB"
             rgba: 245,245,245,1
             font_size: 35
-            # canvas.before:
-            #     Color:
-            #         rgba: 0.176470588235294, 0.188235294117647, 0.203921568627451, 1
-            #     Rectangle:
-            #         pos: self.pos
-            #         size: self.size 
 
         # True Wind Needle
         TrueWindNeedle:
@@ -501,7 +478,6 @@ class WS(GridLayout):
     water_temp = ObjectProperty()
     water_speed = ObjectProperty()
     water_depth = ObjectProperty()
-    #land_speed = ObjectProperty()
     wind_speed = ObjectProperty()
     wind_direction = ObjectProperty()
     apparent_wind_needle = ObjectProperty()
@@ -531,13 +507,13 @@ class WS(GridLayout):
 
 class SignalKInterface(App):
     ws = None
-    url = "ws://172.30.3.149:3000/signalk/v1/stream?subscribe=all"
+    #url = "ws://172.30.3.149:3000/signalk/v1/stream?subscribe=all"
+    url = "ws://serenity-tweed.ddns.net:3000/signalk/v1/stream?subscribe=all"
     layout = ObjectProperty(None)
 
     def __init__(self, **kwargs):
         super(SignalKInterface, self).__init__(**kwargs)
-        #socket_server="ws://172.30.3.149:3000/signalk/v1/stream?subscribe=all"
-        socket_server="ws://serenity-tweed.ddns.net:3000/signalk/v1/stream?subscribe=all"
+        socket_server=url
         ws = KivyWebSocket(socket_server,
                            on_message=self.on_ws_message,
                            on_error=self.on_ws_error,
@@ -551,7 +527,6 @@ class SignalKInterface(App):
 
     def build(self):
         Window.borderless = False
-        #Window.size = 155, 520 # This is temp for viewing on a Mac
         Window.size = screenwidth, screenheight-40 # This is real setting for 1080p
         Window.top = 0
         Window.left = 0
