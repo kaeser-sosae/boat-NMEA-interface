@@ -377,7 +377,7 @@ kv = '''
         # Engine Battery
         Label:
             id: engine_battery_percent
-            text: "80%"
+            text: "-"
             size_hint: 0.2,0.2
             pos: 130, 90
             font_name: "SFProSB"
@@ -395,7 +395,7 @@ kv = '''
         # House Battery
         Label:
             id: house_battery_percent
-            text: "97%"
+            text: "-"
             size_hint: 0.2,0.2
             pos: 450, 90
             font_name: "SFProSB"
