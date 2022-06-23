@@ -323,7 +323,7 @@ kv = '''
         # SOG Value
         Label:
             id: sog_value
-            text: "8.0"
+            text: "-"
             size_hint: 0.2,0.2
             pos: 533,335
             font_name: "SFProSB"
@@ -341,7 +341,7 @@ kv = '''
         # Speed Value
         Label:
             id: speed_value
-            text: "6.8"
+            text: "-"
             size_hint: 0.2,0.2
             pos: 1003,335
             font_name: "SFProSB"
@@ -359,7 +359,7 @@ kv = '''
         # RPMs Value
         Label:
             id: rpms_value
-            text: "3250"
+            text: "-"
             size_hint: 0.2,0.2
             pos: 1472,335
             font_name: "SFProSB"
@@ -532,6 +532,13 @@ class SignalKInterface(App):
         Window.top = 0
         Window.left = 0
         self.layout = WS()
+
+        # Set the default angles and values
+        self.layout.sog_needle.angle = 43
+        self.layout.speed_needle.angle = 43
+        self.layout.rpms_needle.angle = 43
+        
+
         return self.layout
 
     def on_ws_message(self, ws, message):
